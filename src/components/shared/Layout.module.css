@@ -1,0 +1,31 @@
+.shell {
+  min-height: 100dvh;
+  background-color: #F1EFE8;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.container {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  height: 100dvh;
+  background-color: #FBEAF0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.withNav {
+  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+}

@@ -1,0 +1,198 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(50, 24, 36, 0.24);
+  padding: 16px;
+}
+
+.sheet {
+  width: min(100%, 430px);
+  max-height: min(86dvh, 720px);
+  overflow-y: auto;
+  background: #FBEAF0;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 20px 20px 12px 12px;
+  box-shadow: 0 24px 60px rgba(114, 36, 62, 0.2);
+  padding: 10px 18px 22px;
+}
+
+.handle {
+  width: 42px;
+  height: 4px;
+  border-radius: 999px;
+  margin: 0 auto 16px;
+  background: rgba(153, 53, 86, 0.18);
+}
+
+.header,
+.summary,
+.monthControls,
+.weekdays,
+.calendar {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #C090A8;
+}
+
+.header h2 {
+  margin-top: 3px;
+  color: #72243E;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.closeButton {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #FAF9F7;
+  color: #993556;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.summary div {
+  border-radius: 12px;
+  background: #FAF9F7;
+  padding: 14px;
+}
+
+.summary span {
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+  color: #72243E;
+}
+
+.summary small {
+  display: block;
+  margin-top: 2px;
+  color: #993556;
+  font-size: 12px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.legend span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #72243E;
+  background: rgba(153, 53, 86, 0.09);
+  border-radius: 999px;
+  padding: 5px 9px;
+}
+
+.monthControls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.monthControls button {
+  min-width: 0;
+  border: 1px solid rgba(153, 53, 86, 0.12);
+  border-radius: 10px;
+  background: #FAF9F7;
+  color: #993556;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 6px;
+  cursor: pointer;
+}
+
+.weekdays,
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.weekdays {
+  margin-top: 18px;
+}
+
+.weekdays span {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #C090A8;
+}
+
+.calendar {
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.day {
+  min-width: 0;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  background: rgba(250, 249, 247, 0.82);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 1px solid transparent;
+}
+
+.today {
+  border-color: rgba(153, 53, 86, 0.35);
+}
+
+.outside {
+  opacity: 0.34;
+}
+
+.dayNumber {
+  font-size: 11px;
+  font-weight: 600;
+  color: #72243E;
+}
+
+.miniRing {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: conic-gradient(#993556 var(--ring-fill), rgba(153, 53, 86, 0.12) 0);
+  position: relative;
+}
+
+.miniRing::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #FAF9F7;
+}

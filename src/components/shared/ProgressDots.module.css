@@ -1,0 +1,25 @@
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 0 16px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(244, 192, 209, 0.4);
+  transition: all 0.25s ease;
+}
+
+.active {
+  background-color: #F4C0D1;
+  width: 22px;
+  border-radius: 4px;
+}
+
+.done {
+  background-color: #E8A0B8;
+}

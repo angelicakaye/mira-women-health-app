@@ -1,0 +1,67 @@
+.card {
+  background-color: #FAF9F7;
+  border-radius: 20px;
+  padding: 22px 20px;
+  border: 1px solid rgba(114, 36, 62, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.whisperText {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #993556;
+  font-style: italic;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(244, 192, 209, 0.4);
+}
+
+.attribution {
+  font-style: normal;
+  color: #C090A8;
+  font-size: 12px;
+}
+
+.prompt {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #5A3040;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.doneBtn {
+  width: 100%;
+}
+
+.skipBtn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  color: #C090A8;
+  padding: 8px 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.responded {
+  text-align: center;
+  background-color: rgba(244, 192, 209, 0.12);
+  border-color: rgba(244, 192, 209, 0.3);
+  padding: 28px 20px;
+}
+
+.responseText {
+  font-size: 14px;
+  color: #993556;
+  font-style: italic;
+}

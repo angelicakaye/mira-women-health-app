@@ -1,0 +1,241 @@
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 40px;
+  gap: 20px;
+  animation: fadeIn 0.35s ease forwards;
+  overflow-y: auto;
+}
+
+.illustration {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 4px;
+}
+
+.illustrationPlaceholder {
+  width: 100%;
+  min-height: 160px;
+  background: rgba(244, 192, 209, 0.15);
+  border-radius: 14px;
+  border: 1.5px dashed rgba(244, 192, 209, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C090A8;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #72243E;
+  line-height: 1.35;
+}
+
+.body {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #5A3040;
+}
+
+.infoBox {
+  background: rgba(244, 192, 209, 0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+  border-left: 3px solid #F4C0D1;
+}
+
+.infoText {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #72243E;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stepRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.stepNum {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #F4C0D1;
+  color: #72243E;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stepLabel {
+  font-size: 15px;
+  color: #72243E;
+  font-weight: 500;
+}
+
+.bulletList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 4px;
+}
+
+.bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #5A3040;
+}
+
+.bulletDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #F4C0D1;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.lumiHint {
+  font-size: 13px;
+  color: #993556;
+  font-style: italic;
+  text-align: center;
+  padding: 4px 0;
+}
+
+.lookForGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.lookForItem {
+  background: rgba(244, 192, 209, 0.15);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #72243E;
+  line-height: 1.5;
+  border: 1px solid rgba(244, 192, 209, 0.3);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.branchButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.completionWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+}
+
+.completionTitle {
+  font-size: 24px;
+  font-weight: 500;
+  color: #72243E;
+  text-align: center;
+}
+
+.completionSub {
+  font-size: 15px;
+  color: #993556;
+  text-align: center;
+  font-style: italic;
+}
+
+.branchLabel {
+  font-size: 14px;
+  color: #72243E;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Modal overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(114, 36, 62, 0.15);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.25s ease forwards;
+}
+
+.modal {
+  background: #FAF9F7;
+  border-radius: 20px 20px 0 0;
+  padding: 28px 24px 40px;
+  width: 100%;
+  max-width: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #72243E;
+}
+
+.modalBody {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #5A3040;
+}
+
+.modalContact {
+  background: rgba(244, 192, 209, 0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.modalContactLabel {
+  font-size: 12px;
+  color: #993556;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.modalContactNum {
+  font-size: 18px;
+  font-weight: 500;
+  color: #72243E;
+}

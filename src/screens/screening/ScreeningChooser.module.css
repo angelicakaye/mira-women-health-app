@@ -1,0 +1,122 @@
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 20px 40px;
+  gap: 24px;
+  animation: fadeIn 0.35s ease forwards;
+}
+
+.header {
+  text-align: center;
+  padding: 0 8px;
+}
+
+.title {
+  font-size: 21px;
+  font-weight: 500;
+  color: #72243E;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #993556;
+  line-height: 1.65;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.optionCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background-color: #FAF9F7;
+  border: 1px solid rgba(114, 36, 62, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+  width: 100%;
+}
+
+.optionCard:hover {
+  border-color: rgba(244, 192, 209, 0.6);
+  background: #FEF5F8;
+}
+
+.optionCard:active {
+  transform: scale(0.985);
+}
+
+.optionIllustration {
+  flex-shrink: 0;
+}
+
+.optionBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.optionBadge {
+  font-size: 11px;
+  font-weight: 500;
+  color: #72243E;
+  background: rgba(244, 192, 209, 0.4);
+  border-radius: 999px;
+  padding: 3px 10px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.optionBadgeSoft {
+  background: rgba(241, 239, 232, 0.8);
+  color: #993556;
+}
+
+.optionTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #72243E;
+  line-height: 1.3;
+}
+
+.optionMeta {
+  font-size: 12.5px;
+  color: #C090A8;
+}
+
+.optionWhisper {
+  font-size: 13px;
+  color: #993556;
+  font-style: italic;
+  line-height: 1.55;
+  margin-top: 4px;
+}
+
+.optionAttrib {
+  font-style: normal;
+  color: #C090A8;
+  font-size: 12px;
+}
+
+.optionArrow {
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.6;
+}
+
+.footnote {
+  font-size: 12.5px;
+  color: #C090A8;
+  text-align: center;
+  line-height: 1.7;
+}

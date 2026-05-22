@@ -1,0 +1,58 @@
+[
+  {
+    "id": "clinic-1",
+    "name": "Thomson Women's Clinic",
+    "distance": "2.3 km",
+    "location": "Novena",
+    "address": "123 Thomson Road, #05-67, Singapore 307591",
+    "phone": "+65 6123 4567",
+    "hours": "Mon–Fri 9am–6pm, Sat 9am–1pm",
+    "nextAvailable": "2026-05-28",
+    "accepts": ["CHAS Blue", "CHAS Orange", "MediSave", "Insurance"],
+    "bcfPartner": true,
+    "availableSlots": {
+      "2026-05-28": ["09:00", "10:30", "11:00", "14:00", "15:30"],
+      "2026-05-29": ["09:00", "11:00", "13:30", "15:00"],
+      "2026-05-30": ["10:00", "11:30", "14:00", "16:00"],
+      "2026-06-02": ["09:00", "10:30", "14:30"],
+      "2026-06-03": ["09:30", "11:00", "15:00"]
+    }
+  },
+  {
+    "id": "clinic-2",
+    "name": "Raffles Women's Centre",
+    "distance": "4.1 km",
+    "location": "Raffles Place",
+    "address": "585 North Bridge Road, #03-01, Singapore 188770",
+    "phone": "+65 6311 1111",
+    "hours": "Mon–Fri 8:30am–5:30pm",
+    "nextAvailable": "2026-05-27",
+    "accepts": ["CHAS Blue", "CHAS Orange", "MediSave"],
+    "bcfPartner": true,
+    "availableSlots": {
+      "2026-05-27": ["08:30", "10:00", "14:00", "15:30"],
+      "2026-05-28": ["08:30", "10:00", "14:30"],
+      "2026-05-29": ["09:00", "11:00", "15:00"],
+      "2026-06-02": ["08:30", "10:30", "14:00"],
+      "2026-06-03": ["09:00", "11:00", "13:30"]
+    }
+  },
+  {
+    "id": "clinic-3",
+    "name": "Mount Elizabeth Medical Centre",
+    "distance": "5.7 km",
+    "location": "Orchard",
+    "address": "3 Mount Elizabeth, #12-05, Singapore 228510",
+    "phone": "+65 6737 2222",
+    "hours": "Mon–Sat 9am–5pm",
+    "nextAvailable": "2026-05-30",
+    "accepts": ["Insurance", "Private"],
+    "bcfPartner": false,
+    "availableSlots": {
+      "2026-05-30": ["09:00", "11:00", "14:00", "16:00"],
+      "2026-06-02": ["09:30", "13:00", "15:30"],
+      "2026-06-03": ["10:00", "14:00"],
+      "2026-06-04": ["09:00", "11:30", "15:00"]
+    }
+  }
+]

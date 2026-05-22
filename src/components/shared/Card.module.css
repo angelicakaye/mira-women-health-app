@@ -1,0 +1,31 @@
+.card {
+  background-color: #FAF9F7;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(114, 36, 62, 0.08);
+}
+
+.clickable {
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.clickable:hover {
+  border-color: rgba(244, 192, 209, 0.6);
+  background-color: #FEF5F8;
+}
+
+.clickable:active {
+  transform: scale(0.985);
+}
+
+.accent {
+  background-color: #FEF5F8;
+  border-color: rgba(244, 192, 209, 0.5);
+}
+
+.flat {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}

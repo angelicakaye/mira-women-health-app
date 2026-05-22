@@ -1,0 +1,108 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(170deg, #FBEAF0 0%, #F3DCEA 60%, #EDD4E6 100%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 36px 56px;
+  gap: 0;
+  animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0.6; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  top: 52px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(153, 53, 86, 0.08);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #993556;
+  transition: background 0.15s ease;
+}
+
+.close:hover {
+  background: rgba(153, 53, 86, 0.14);
+}
+
+/* Step dots */
+.dots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(153, 53, 86, 0.2);
+  transition: all 0.3s ease;
+}
+
+.dotActive {
+  background: #993556;
+  width: 22px;
+  border-radius: 4px;
+}
+
+.dotDone {
+  background: rgba(153, 53, 86, 0.45);
+}
+
+/* Lumi */
+.lumiWrap {
+  margin-bottom: 48px;
+}
+
+/* Step text */
+.stepText {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #72243E;
+  text-align: center;
+  font-style: italic;
+  max-width: 320px;
+  margin-bottom: 56px;
+}
+
+/* Button */
+.btn {
+  width: 100%;
+  max-width: 300px;
+  padding: 17px 32px;
+  border-radius: 999px;
+  background: #993556;
+  color: #FAF9F7;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.15s ease;
+  letter-spacing: 0.01em;
+}
+
+.btn:hover {
+  background: #82294A;
+}
+
+.btn:active {
+  transform: scale(0.97);
+  background: #72243E;
+}

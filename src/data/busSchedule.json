@@ -1,0 +1,24 @@
+[
+  {
+    "id": "bus-1",
+    "location": "Jurong West Street 52",
+    "landmark": "Jurong West Community Centre",
+    "address": "Jurong West Street 52, Blk 512, Singapore 640512",
+    "dates": ["2026-05-25", "2026-05-26", "2026-05-27"],
+    "displayDates": "25–27 May",
+    "times": "9am – 5pm daily",
+    "walkIn": true,
+    "languages": ["English", "Mandarin", "Malay", "Tamil"]
+  },
+  {
+    "id": "bus-2",
+    "location": "Taman Jurong Market",
+    "landmark": "Taman Jurong Shopping Centre",
+    "address": "Taman Jurong Shopping Centre, Singapore 608532",
+    "dates": ["2026-06-02", "2026-06-03", "2026-06-04"],
+    "displayDates": "2–4 June",
+    "times": "9am – 5pm daily",
+    "walkIn": true,
+    "languages": ["English", "Mandarin", "Malay", "Tamil"]
+  }
+]

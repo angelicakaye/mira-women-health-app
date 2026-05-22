@@ -1,0 +1,162 @@
+[
+  {
+    "id": "w-01",
+    "text": "I didn't know my own body until I tried this. Took 30 seconds. Felt like coming home.",
+    "age": 41,
+    "location": "Singapore",
+    "stage": "early",
+    "topic": "self-examination"
+  },
+  {
+    "id": "w-02",
+    "text": "Started with just water tracking. Now I notice when my shoulders are tight. Small things add up.",
+    "age": 38,
+    "location": "Singapore",
+    "stage": "early",
+    "topic": "habits"
+  },
+  {
+    "id": "w-03",
+    "text": "My mother never went. I go for her.",
+    "age": 38,
+    "location": "Yishun",
+    "stage": "early",
+    "topic": "family"
+  },
+  {
+    "id": "w-04",
+    "text": "I almost talked myself out of going. Three times. Then I went.",
+    "age": 44,
+    "location": "Tampines",
+    "stage": "early",
+    "topic": "hesitation"
+  },
+  {
+    "id": "w-05",
+    "text": "The app never pushed me. That's why I kept coming back.",
+    "age": 47,
+    "location": "Singapore",
+    "stage": "mid",
+    "topic": "trust"
+  },
+  {
+    "id": "w-06",
+    "text": "I asked my mum. She said 'three years ago.' We booked together. Easier together.",
+    "age": 44,
+    "location": "Singapore",
+    "stage": "mid",
+    "topic": "family"
+  },
+  {
+    "id": "w-07",
+    "text": "I told my sister I was going. She said she'd come with me. We ate chicken rice after.",
+    "age": 43,
+    "location": "Bishan",
+    "stage": "mid",
+    "topic": "together"
+  },
+  {
+    "id": "w-08",
+    "text": "I didn't tell anyone I was going. Felt braver that way. Like a secret I kept for myself.",
+    "age": 39,
+    "location": "Clementi",
+    "stage": "mid",
+    "topic": "courage"
+  },
+  {
+    "id": "w-09",
+    "text": "I was nervous. The nurse was kind. It took 8 minutes. Then I ate laksa.",
+    "age": 42,
+    "location": "Singapore",
+    "stage": "screening",
+    "topic": "mammogram"
+  },
+  {
+    "id": "w-10",
+    "text": "The nurse remembered my name from last time. That helped.",
+    "age": 52,
+    "location": "Queenstown",
+    "stage": "screening",
+    "topic": "mammogram"
+  },
+  {
+    "id": "w-11",
+    "text": "I brought my sister. We went for kopi after. Made it feel less clinical.",
+    "age": 45,
+    "location": "Singapore",
+    "stage": "screening",
+    "topic": "mammogram"
+  },
+  {
+    "id": "w-12",
+    "text": "First time I did the self-exam, I cried. Not from fear — from finally paying attention.",
+    "age": 39,
+    "location": "Singapore",
+    "stage": "screening",
+    "topic": "bse"
+  },
+  {
+    "id": "w-13",
+    "text": "I do it in the shower now. Takes five minutes. I know what normal feels like.",
+    "age": 43,
+    "location": "Singapore",
+    "stage": "screening",
+    "topic": "bse"
+  },
+  {
+    "id": "w-14",
+    "text": "It took twelve minutes. I had been afraid of it for six years.",
+    "age": 52,
+    "location": "Buona Vista",
+    "stage": "screening",
+    "topic": "time"
+  },
+  {
+    "id": "w-15",
+    "text": "My mum went first. Then I went. Then my daughter asked when she could go.",
+    "age": 48,
+    "location": "Singapore",
+    "stage": "screening",
+    "topic": "mammogram"
+  },
+  {
+    "id": "w-16",
+    "text": "Results came back clear. I took myself for a nice lunch. Celebrated small.",
+    "age": 46,
+    "location": "Singapore",
+    "stage": "post",
+    "topic": "celebration"
+  },
+  {
+    "id": "w-17",
+    "text": "I found something. They found it early. That's the whole story.",
+    "age": 49,
+    "location": "Sengkang",
+    "stage": "post",
+    "topic": "outcome"
+  },
+  {
+    "id": "w-18",
+    "text": "It's been three years now. I book it the same week every time. Routine, not fear.",
+    "age": 51,
+    "location": "Singapore",
+    "stage": "post",
+    "topic": "habit"
+  },
+  {
+    "id": "w-19",
+    "text": "I left a whisper here a year ago. Someone messaged me to say it helped her go. That's enough.",
+    "age": 50,
+    "location": "Jurong",
+    "stage": "post",
+    "topic": "connection"
+  },
+  {
+    "id": "w-20",
+    "text": "You don't have to be ready. You just have to be willing to try.",
+    "age": 45,
+    "location": "Singapore",
+    "stage": "mid",
+    "topic": "readiness"
+  }
+]
