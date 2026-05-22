@@ -1,38 +1,50 @@
 .page {
   display: flex;
   flex-direction: column;
-  padding: 32px 24px 40px;
+  padding: 28px 20px 40px;
   gap: 24px;
   min-height: 100%;
 }
 
-/* Header */
-.header {
+/* ── Hero ── */
+.hero {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
-.name {
-  font-size: 22px;
+.heroFlower {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.heroName {
+  font-size: 24px;
   font-weight: 700;
   color: #72243E;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
-.daySub {
+.heroDaySub {
   font-size: 13px;
   color: #C090A8;
-  margin-top: 2px;
 }
 
-/* Stats row */
+/* ── Stats row ── */
 .statsRow {
   display: flex;
   align-items: center;
   background: #FFFFFF;
   border-radius: 16px;
-  padding: 20px 0;
+  padding: 18px 0;
   box-shadow: 0 2px 12px rgba(244, 192, 209, 0.2);
 }
 
@@ -45,13 +57,13 @@
 }
 
 .statNum {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 700;
   color: #993556;
 }
 
 .statLabel {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   color: #C090A8;
   letter-spacing: 0.04em;
@@ -60,11 +72,11 @@
 
 .statDivider {
   width: 1px;
-  height: 32px;
+  height: 28px;
   background: rgba(244, 192, 209, 0.4);
 }
 
-/* Sections */
+/* ── Sections ── */
 .section {
   display: flex;
   flex-direction: column;
@@ -73,67 +85,225 @@
 
 .sectionLabel {
   font-size: 11px;
-  font-weight: 600;
-  color: #C090A8;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: #C090A8;
 }
 
-/* Today's habits */
-.habitsRow {
+.sectionHeaderRow {
   display: flex;
-  gap: 8px;
+  align-items: baseline;
+  justify-content: space-between;
 }
 
-.habitChip {
+.sectionLink {
+  font-size: 12px;
+  font-weight: 700;
+  color: #993556;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ── Section hint ── */
+.sectionHint {
+  font-size: 12px;
+  color: #D4B0C0;
+  margin-top: -4px;
+}
+
+/* ── Garden grid ── */
+.gardenGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gardenCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 6px;
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(244,192,209,0.2);
+  border-radius: 14px;
+  min-width: 64px;
+}
+
+.gardenCellCurrent {
+  border-color: rgba(153,53,86,0.35);
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 0 0 2px rgba(153,53,86,0.12);
+}
+
+.gardenWeekLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: #C090A8;
+  letter-spacing: 0.04em;
+}
+
+/* ── Cycle log ── */
+.cycleList {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 4px 0;
+  box-shadow: 0 2px 12px rgba(244, 192, 209, 0.18);
+  overflow: hidden;
+}
+
+.cycleItem {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 20px;
-  background: #FFFFFF;
-  font-size: 13px;
-  font-weight: 500;
-  color: #C090A8;
-  box-shadow: 0 1px 6px rgba(244, 192, 209, 0.2);
-  transition: all 0.2s ease;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(244, 192, 209, 0.2);
 }
 
-.habitChip.habitDone {
-  background: rgba(153, 53, 86, 0.08);
-  color: #993556;
+.cycleItem:last-child {
+  border-bottom: none;
 }
 
-.habitDot {
-  width: 7px;
-  height: 7px;
+.cycleDot {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: #F4C0D1;
+  background: rgba(196, 123, 154, 0.5);
   flex-shrink: 0;
 }
 
-.habitDone .habitDot {
-  background: #993556;
-}
-
-/* Goal card */
-.goalCard {
-  background: #FFFFFF;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 2px 12px rgba(244, 192, 209, 0.2);
+.cycleDetails {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex: 1;
+  align-items: baseline;
+  justify-content: space-between;
 }
 
-.goalText {
+.cycleRange {
   font-size: 14px;
   color: #72243E;
   font-weight: 500;
 }
 
-.goalActions {
+.cycleDays {
+  font-size: 12px;
+  color: #C090A8;
+}
+
+/* ── Screening history ── */
+.screeningList {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 4px 0;
+  box-shadow: 0 2px 12px rgba(244, 192, 209, 0.18);
+  overflow: hidden;
+}
+
+.screeningItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(244, 192, 209, 0.2);
+}
+
+.screeningItem:last-child {
+  border-bottom: none;
+}
+
+.screeningIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.screeningIconBse {
+  background: #C47B9A;
+}
+
+.screeningIconMammo {
+  background: #993556;
+}
+
+.screeningDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.screeningTitle {
+  font-size: 14px;
+  color: #72243E;
+  font-weight: 500;
+}
+
+.screeningDate {
+  font-size: 12px;
+  color: #C090A8;
+}
+
+.screeningBadge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #C47B9A;
+  background: rgba(196, 123, 154, 0.12);
+  border-radius: 999px;
+  padding: 3px 10px;
+  flex-shrink: 0;
+}
+
+/* ── Empty states ── */
+.emptyCard {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 20px 16px;
+  box-shadow: 0 2px 12px rgba(244, 192, 209, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.emptyText {
+  font-size: 14px;
+  color: #C090A8;
+  font-weight: 500;
+}
+
+.emptyHint {
+  font-size: 12px;
+  color: #D4B0C0;
+}
+
+/* ── Focus card ── */
+.focusCard {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(244, 192, 209, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.focusText {
+  font-size: 14px;
+  color: #72243E;
+  font-weight: 500;
+}
+
+.goalChips {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -149,6 +319,7 @@
   cursor: pointer;
   border: none;
   transition: all 0.18s ease;
+  font-family: inherit;
 }
 
 .goalChip.goalChipActive {
@@ -156,25 +327,7 @@
   color: #FFFFFF;
 }
 
-/* Screening card */
-.screeningCard {
-  background: #FFFFFF;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 2px 12px rgba(244, 192, 209, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.screeningStatus {
-  font-size: 14px;
-  color: #72243E;
-  font-weight: 500;
-}
-
-/* Footer */
+/* ── Footer ── */
 .footer {
   margin-top: auto;
   display: flex;
@@ -191,6 +344,7 @@
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
+  font-family: inherit;
 }
 
 .resetConfirm {

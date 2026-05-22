@@ -1,9 +1,15 @@
 .header {
   display: flex;
   align-items: center;
-  padding: 16px 20px 8px;
-  min-height: 52px;
-  gap: 8px;
+  padding: 4px 16px 8px;
+  min-height: 48px;
+  flex-shrink: 0;
+}
+
+.left {
+  width: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .backBtn {
@@ -13,26 +19,29 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(244, 192, 209, 0.25);
+  background: rgba(244, 192, 209, 0.2);
   border: none;
   cursor: pointer;
   flex-shrink: 0;
   transition: background 0.15s ease;
 }
 
-.backBtn:hover {
-  background: rgba(244, 192, 209, 0.5);
+.backBtn:active {
+  background: rgba(244, 192, 209, 0.45);
 }
 
 .title {
-  font-size: 15px;
-  font-weight: 500;
-  color: #72243E;
   flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #72243E;
   text-align: center;
+  letter-spacing: -0.1px;
 }
 
-.spacer {
-  width: 36px;
-  flex-shrink: 0;
+.right {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }

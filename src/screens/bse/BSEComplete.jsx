@@ -7,13 +7,13 @@ import Button from '../../components/shared/Button'
 import styles from './BSE.module.css'
 
 export default function BSEComplete() {
-  const { userName, completeScreening } = useApp()
+  const { userName, logBse } = useApp()
   const [showModal, setShowModal] = useState(false)
   const navigate = useNavigate()
 
   function handleNormal() {
-    completeScreening('bse')
-    navigate('/checkin')
+    logBse()
+    navigate('/celebrate')
   }
 
   function handleNoticed() {
@@ -21,7 +21,7 @@ export default function BSEComplete() {
   }
 
   function handleModalClose() {
-    completeScreening('bse')
+    logBse()
     navigate('/home')
   }
 

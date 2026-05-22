@@ -1,0 +1,22 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px 6px;
+  flex-shrink: 0;
+  color: #72243E;
+}
+
+.time {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  line-height: 1;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #72243E;
+}

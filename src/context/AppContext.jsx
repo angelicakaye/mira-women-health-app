@@ -10,13 +10,19 @@ const defaultState = {
   habitLogs: {},
   cardResponses: {},
   periodLogs: [],           // ISO date strings when period was logged
+  cycleDetails: {},         // { [date]: { flow: string, symptoms: string[] } }
+  bseLogs: [],              // ISO date strings when BSE was completed
+  flowerType: 'rose',       // 'rose' | 'peony' | 'lily'
+  flowerPicks: {},          // { [weekNum]: 'rose' | 'peony' | 'lily' }
   screeningCompleted: false,
   screeningType: null,
   bookingDetails: { clinicId: null, date: null, time: null, type: null },
   userDetails: { fullName: '', phone: '', email: '', nric: '', birthYear: '' },
   bookings: [],
   whispersContributed: [],
+  whisperReactions: {},     // { [whisperId]: ['heart', 'spark', ...] }
   nudgeDismissedAt: null,
+  checkinNudgeDone: false,  // Day 21 screening check-in nudge
 }
 
 function loadState() {
@@ -89,9 +95,25 @@ export function AppProvider({ children }) {
     update({ userGoal: goal })
   }, [update])
 
+  const setFlowerType = useCallback((type) => {
+    update({ flowerType: type })
+  }, [update])
+
+  const setWeekFlower = useCallback((weekNum, type) => {
+    setState(prev => {
+      const next = {
+        ...prev,
+        flowerType: type,
+        flowerPicks: { ...prev.flowerPicks, [weekNum]: type },
+      }
+      saveState(next)
+      return next
+    })
+  }, [])
+
   const logHabit = useCallback((date, habit) => {
     setState(prev => {
-      const dayLog = prev.habitLogs[date] || { water: false, sleep: false, movement: false }
+      const dayLog = prev.habitLogs[date] || { water: false, sleep: false, movement: false, selfCare: false }
       const next = {
         ...prev,
         habitLogs: { ...prev.habitLogs, [date]: { ...dayLog, [habit]: true } }
@@ -115,6 +137,59 @@ export function AppProvider({ children }) {
   const completeScreening = useCallback((type) => {
     update({ screeningCompleted: true, screeningType: type })
   }, [update])
+
+  const logCycleDay = useCallback((date, { flow, symptoms }) => {
+    setState(prev => {
+      const isPeriodDay = flow && flow !== 'none'
+      const logs = prev.periodLogs || []
+      const alreadyInLogs = logs.includes(date)
+      const next = {
+        ...prev,
+        cycleDetails: {
+          ...prev.cycleDetails,
+          [date]: { flow, symptoms },
+        },
+        periodLogs: isPeriodDay
+          ? (alreadyInLogs ? logs : [...logs, date])
+          : logs.filter(d => d !== date),
+      }
+      saveState(next)
+      return next
+    })
+  }, [])
+
+  const logBse = useCallback(() => {
+    setState(prev => {
+      const next = {
+        ...prev,
+        screeningCompleted: true,
+        screeningType: 'bse',
+        bseLogs: [...(prev.bseLogs || []), todayISO()],
+      }
+      saveState(next)
+      return next
+    })
+  }, [])
+
+  const markCheckinNudgeDone = useCallback(() => {
+    update({ checkinNudgeDone: true })
+  }, [update])
+
+  const toggleWhisperReaction = useCallback((whisperId, type) => {
+    setState(prev => {
+      const current = prev.whisperReactions?.[whisperId] || []
+      const has = current.includes(type)
+      const next = {
+        ...prev,
+        whisperReactions: {
+          ...prev.whisperReactions,
+          [whisperId]: has ? current.filter(t => t !== type) : [...current, type],
+        },
+      }
+      saveState(next)
+      return next
+    })
+  }, [])
 
   const setBookingDetails = useCallback((details) => {
     setState(prev => {
@@ -196,7 +271,13 @@ export function AppProvider({ children }) {
     dayCount = Math.max(1, diff + 1)
   }
 
-  const todayHabits = state.habitLogs[today] || { water: false, sleep: false, movement: false }
+  const todayHabits = state.habitLogs[today] || { water: false, sleep: false, movement: false, selfCare: false }
+
+  // Weekly garden
+  const daysSinceInstall = state.installDate ? daysBetween(state.installDate, today) : 0
+  const currentWeekNum = Math.floor(daysSinceInstall / 7) + 1
+  const currentWeekFlower = state.flowerPicks[currentWeekNum] || state.flowerType || 'rose'
+  const showWeeklyPicker = !state.flowerPicks[currentWeekNum]
   const todayCardResponse = state.cardResponses[today] || null
   const todayPeriod = (state.periodLogs || []).includes(today)
 
@@ -205,6 +286,7 @@ export function AppProvider({ children }) {
     state.nudgeDismissedAt === null ||
     daysBetween(state.nudgeDismissedAt, today) >= 7
   )
+  const showCheckinNudge = dayCount >= 21 && !state.checkinNudgeDone
 
   const value = {
     // Raw state
@@ -217,18 +299,28 @@ export function AppProvider({ children }) {
     todayPeriod,
     showWhisper,
     showNudge,
+    showCheckinNudge,
     // Actions
     setUserName,
+    currentWeekNum,
+    currentWeekFlower,
+    showWeeklyPicker,
     setUserGoal,
+    setFlowerType,
+    setWeekFlower,
     logHabit,
     logPeriod,
     respondToCard,
     completeScreening,
+    logBse,
     setBookingDetails,
     setUserDetails,
     confirmBooking,
     contributeWhisper,
     dismissNudge,
+    markCheckinNudgeDone,
+    toggleWhisperReaction,
+    logCycleDay,
   }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

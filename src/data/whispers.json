@@ -1,162 +1,222 @@
 [
   {
     "id": "w-01",
+    "username": "@quietlybrave",
     "text": "I didn't know my own body until I tried this. Took 30 seconds. Felt like coming home.",
-    "age": 41,
-    "location": "Singapore",
-    "stage": "early",
-    "topic": "self-examination"
+    "age": 41, "location": "Singapore", "daysAgo": 3,
+    "stage": "early", "topic": "self-examination",
+    "reactions": { "heart": 47, "hug": 19, "spark": 31 },
+    "replies": [
+      { "id": "r-01-1", "username": "@softsteps", "text": "This is exactly what I needed to hear. Thank you.", "age": 36, "location": "Tampines" },
+      { "id": "r-01-2", "username": "@warmlight_sg", "text": "Coming home — yes, that's the feeling.", "age": 43, "location": "Bedok" }
+    ]
   },
   {
     "id": "w-02",
+    "username": "@smallvictory",
     "text": "Started with just water tracking. Now I notice when my shoulders are tight. Small things add up.",
-    "age": 38,
-    "location": "Singapore",
-    "stage": "early",
-    "topic": "habits"
+    "age": 38, "location": "Singapore", "daysAgo": 7,
+    "stage": "early", "topic": "habits",
+    "reactions": { "heart": 29, "hug": 8, "spark": 22 },
+    "replies": [
+      { "id": "r-02-1", "username": "@hereiam_sg", "text": "Same — I started with water too. It changed everything.", "age": 40, "location": "Jurong" }
+    ]
   },
   {
     "id": "w-03",
+    "username": "@forthemothers",
     "text": "My mother never went. I go for her.",
-    "age": 38,
-    "location": "Yishun",
-    "stage": "early",
-    "topic": "family"
+    "age": 38, "location": "Yishun", "daysAgo": 14,
+    "stage": "early", "topic": "family",
+    "reactions": { "heart": 112, "hug": 68, "spark": 44 },
+    "replies": [
+      { "id": "r-03-1", "username": "@notalone_sg", "text": "I cried reading this. I go for my mum too.", "age": 42, "location": "Woodlands" },
+      { "id": "r-03-2", "username": "@hiddenstrength", "text": "You are brave for both of you.", "age": 51, "location": "Bishan" },
+      { "id": "r-03-3", "username": "@innervoice27", "text": "This hit different. Thank you.", "age": 27, "location": "Toa Payoh" }
+    ]
   },
   {
     "id": "w-04",
+    "username": "@threetimelucky",
     "text": "I almost talked myself out of going. Three times. Then I went.",
-    "age": 44,
-    "location": "Tampines",
-    "stage": "early",
-    "topic": "hesitation"
+    "age": 44, "location": "Tampines", "daysAgo": 21,
+    "stage": "early", "topic": "hesitation",
+    "reactions": { "heart": 88, "hug": 34, "spark": 56 },
+    "replies": [
+      { "id": "r-04-1", "username": "@stilltrying_sg", "text": "Three times for me too. You are not alone.", "age": 46, "location": "Hougang" },
+      { "id": "r-04-2", "username": "@gentlewarrior", "text": "The fact that you went is everything.", "age": 38, "location": "Clementi" }
+    ]
   },
   {
     "id": "w-05",
+    "username": "@notpushed",
     "text": "The app never pushed me. That's why I kept coming back.",
-    "age": 47,
-    "location": "Singapore",
-    "stage": "mid",
-    "topic": "trust"
+    "age": 47, "location": "Singapore", "daysAgo": 5,
+    "stage": "mid", "topic": "trust",
+    "reactions": { "heart": 61, "hug": 14, "spark": 38 },
+    "replies": []
   },
   {
     "id": "w-06",
+    "username": "@easiertogether",
     "text": "I asked my mum. She said 'three years ago.' We booked together. Easier together.",
-    "age": 44,
-    "location": "Singapore",
-    "stage": "mid",
-    "topic": "family"
+    "age": 44, "location": "Singapore", "daysAgo": 10,
+    "stage": "mid", "topic": "family",
+    "reactions": { "heart": 74, "hug": 41, "spark": 27 },
+    "replies": [
+      { "id": "r-06-1", "username": "@morningdew_sg", "text": "This is what community looks like.", "age": 45, "location": "Ang Mo Kio" }
+    ]
   },
   {
     "id": "w-07",
+    "username": "@chickenrice_after",
     "text": "I told my sister I was going. She said she'd come with me. We ate chicken rice after.",
-    "age": 43,
-    "location": "Bishan",
-    "stage": "mid",
-    "topic": "together"
+    "age": 43, "location": "Bishan", "daysAgo": 18,
+    "stage": "mid", "topic": "together",
+    "reactions": { "heart": 93, "hug": 52, "spark": 19 },
+    "replies": [
+      { "id": "r-07-1", "username": "@rosegarden_sg", "text": "The chicken rice after part made me smile so much.", "age": 41, "location": "Toa Payoh" },
+      { "id": "r-07-2", "username": "@warmwaters25", "text": "This is the most Singaporean and wholesome thing.", "age": 25, "location": "Singapore" }
+    ]
   },
   {
     "id": "w-08",
+    "username": "@secretformyself",
     "text": "I didn't tell anyone I was going. Felt braver that way. Like a secret I kept for myself.",
-    "age": 39,
-    "location": "Clementi",
-    "stage": "mid",
-    "topic": "courage"
+    "age": 29, "location": "Clementi", "daysAgo": 2,
+    "stage": "mid", "topic": "courage",
+    "reactions": { "heart": 55, "hug": 22, "spark": 43 },
+    "replies": []
   },
   {
     "id": "w-09",
+    "username": "@nervous_but_went",
     "text": "I was nervous. The nurse was kind. It took 8 minutes. Then I ate laksa.",
-    "age": 42,
-    "location": "Singapore",
-    "stage": "screening",
-    "topic": "mammogram"
+    "age": 42, "location": "Singapore", "daysAgo": 30,
+    "stage": "screening", "topic": "mammogram",
+    "reactions": { "heart": 81, "hug": 29, "spark": 37 },
+    "replies": [
+      { "id": "r-09-1", "username": "@queenstown_q", "text": "Laksa is the perfect celebration meal.", "age": 40, "location": "Queenstown" }
+    ]
   },
   {
     "id": "w-10",
+    "username": "@sheremembered",
     "text": "The nurse remembered my name from last time. That helped.",
-    "age": 52,
-    "location": "Queenstown",
-    "stage": "screening",
-    "topic": "mammogram"
+    "age": 52, "location": "Queenstown", "daysAgo": 45,
+    "stage": "screening", "topic": "mammogram",
+    "reactions": { "heart": 66, "hug": 45, "spark": 11 },
+    "replies": []
   },
   {
     "id": "w-11",
+    "username": "@kopitherapy",
     "text": "I brought my sister. We went for kopi after. Made it feel less clinical.",
-    "age": 45,
-    "location": "Singapore",
-    "stage": "screening",
-    "topic": "mammogram"
+    "age": 35, "location": "Singapore", "daysAgo": 12,
+    "stage": "screening", "topic": "mammogram",
+    "reactions": { "heart": 58, "hug": 31, "spark": 24 },
+    "replies": [
+      { "id": "r-11-1", "username": "@bvista_babe", "text": "Kopi heals everything.", "age": 49, "location": "Buona Vista" }
+    ]
   },
   {
     "id": "w-12",
+    "username": "@finallypaying",
     "text": "First time I did the self-exam, I cried. Not from fear — from finally paying attention.",
-    "age": 39,
-    "location": "Singapore",
-    "stage": "screening",
-    "topic": "bse"
+    "age": 32, "location": "Singapore", "daysAgo": 8,
+    "stage": "screening", "topic": "bse",
+    "reactions": { "heart": 104, "hug": 71, "spark": 48 },
+    "replies": [
+      { "id": "r-12-1", "username": "@punggol_pink", "text": "Not from fear. I am saving this.", "age": 28, "location": "Punggol" },
+      { "id": "r-12-2", "username": "@withyou_always", "text": "You said what I felt but couldn't put into words.", "age": 44, "location": "Singapore" }
+    ]
   },
   {
     "id": "w-13",
+    "username": "@showernormal",
     "text": "I do it in the shower now. Takes five minutes. I know what normal feels like.",
-    "age": 43,
-    "location": "Singapore",
-    "stage": "screening",
-    "topic": "bse"
+    "age": 43, "location": "Singapore", "daysAgo": 20,
+    "stage": "screening", "topic": "bse",
+    "reactions": { "heart": 72, "hug": 18, "spark": 55 },
+    "replies": []
   },
   {
     "id": "w-14",
+    "username": "@sixyrfear",
     "text": "It took twelve minutes. I had been afraid of it for six years.",
-    "age": 52,
-    "location": "Buona Vista",
-    "stage": "screening",
-    "topic": "time"
+    "age": 52, "location": "Buona Vista", "daysAgo": 60,
+    "stage": "screening", "topic": "time",
+    "reactions": { "heart": 97, "hug": 43, "spark": 62 },
+    "replies": [
+      { "id": "r-14-1", "username": "@dearselfsg", "text": "Six years. This is why we share.", "age": 50, "location": "Singapore" }
+    ]
   },
   {
     "id": "w-15",
+    "username": "@threegeneration",
     "text": "My mum went first. Then I went. Then my daughter asked when she could go.",
-    "age": 48,
-    "location": "Singapore",
-    "stage": "screening",
-    "topic": "mammogram"
+    "age": 48, "location": "Singapore", "daysAgo": 35,
+    "stage": "screening", "topic": "mammogram",
+    "reactions": { "heart": 138, "hug": 87, "spark": 51 },
+    "replies": [
+      { "id": "r-15-1", "username": "@jurong_jasmine", "text": "Three generations. This is how we protect each other.", "age": 46, "location": "Jurong" },
+      { "id": "r-15-2", "username": "@sengkang_sg", "text": "Your daughter asking — that's everything.", "age": 26, "location": "Sengkang" }
+    ]
   },
   {
     "id": "w-16",
+    "username": "@nicerlunch",
     "text": "Results came back clear. I took myself for a nice lunch. Celebrated small.",
-    "age": 46,
-    "location": "Singapore",
-    "stage": "post",
-    "topic": "celebration"
+    "age": 46, "location": "Singapore", "daysAgo": 4,
+    "stage": "post", "topic": "celebration",
+    "reactions": { "heart": 119, "hug": 34, "spark": 77 },
+    "replies": [
+      { "id": "r-16-1", "username": "@tampinesgrace", "text": "Celebrated small is still celebrated. So glad for you.", "age": 44, "location": "Tampines" }
+    ]
   },
   {
     "id": "w-17",
+    "username": "@founditearly",
     "text": "I found something. They found it early. That's the whole story.",
-    "age": 49,
-    "location": "Sengkang",
-    "stage": "post",
-    "topic": "outcome"
+    "age": 49, "location": "Sengkang", "daysAgo": 90,
+    "stage": "post", "topic": "outcome",
+    "reactions": { "heart": 203, "hug": 148, "spark": 91 },
+    "replies": [
+      { "id": "r-17-1", "username": "@slowandsteady_", "text": "Early. Thank goodness for early. Sending you so much warmth.", "age": 47, "location": "Singapore" },
+      { "id": "r-17-2", "username": "@findingme_sg", "text": "This is why we go. Thank you for sharing this.", "age": 30, "location": "Bedok" },
+      { "id": "r-17-3", "username": "@gentleheart_sg", "text": "You are brave and I hope you are well.", "age": 51, "location": "Buona Vista" }
+    ]
   },
   {
     "id": "w-18",
+    "username": "@routinenotfear",
     "text": "It's been three years now. I book it the same week every time. Routine, not fear.",
-    "age": 51,
-    "location": "Singapore",
-    "stage": "post",
-    "topic": "habit"
+    "age": 51, "location": "Singapore", "daysAgo": 16,
+    "stage": "post", "topic": "habit",
+    "reactions": { "heart": 86, "hug": 22, "spark": 73 },
+    "replies": []
   },
   {
     "id": "w-19",
-    "text": "I left a whisper here a year ago. Someone messaged me to say it helped her go. That's enough.",
-    "age": 50,
-    "location": "Jurong",
-    "stage": "post",
-    "topic": "connection"
+    "username": "@leftatrace",
+    "text": "I left a whisper here a year ago. Someone told me it helped her go. That's enough.",
+    "age": 50, "location": "Jurong", "daysAgo": 25,
+    "stage": "post", "topic": "connection",
+    "reactions": { "heart": 91, "hug": 56, "spark": 44 },
+    "replies": [
+      { "id": "r-19-1", "username": "@stillhere_sg", "text": "And your whisper is still here. Still helping.", "age": 31, "location": "Singapore" }
+    ]
   },
   {
     "id": "w-20",
+    "username": "@willingtotry",
     "text": "You don't have to be ready. You just have to be willing to try.",
-    "age": 45,
-    "location": "Singapore",
-    "stage": "mid",
-    "topic": "readiness"
+    "age": 45, "location": "Singapore", "daysAgo": 1,
+    "stage": "mid", "topic": "readiness",
+    "reactions": { "heart": 167, "hug": 89, "spark": 112 },
+    "replies": [
+      { "id": "r-20-1", "username": "@pasiris_pearl", "text": "Printing this out and putting it on my wall.", "age": 33, "location": "Pasir Ris" },
+      { "id": "r-20-2", "username": "@luminou_sg", "text": "Willing to try. Yes. That's all.", "age": 44, "location": "Singapore" }
+    ]
   }
 ]
