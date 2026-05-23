@@ -23,6 +23,10 @@ const defaultState = {
   whisperReactions: {},     // { [whisperId]: ['heart', 'spark', ...] }
   nudgeDismissedAt: null,
   checkinNudgeDone: false,  // Day 21 screening check-in nudge
+  moodLog: {},              // { [date]: mood string }
+  letterSeenDay7: false,
+  screeningNudgeResponse: null,  // 'ready' | 'later' | null
+  weekCheckIns: {},  // { [weekNum]: { mood, focus, flower } }
 }
 
 function loadState() {
@@ -249,6 +253,54 @@ export function AppProvider({ children }) {
     update({ nudgeDismissedAt: todayISO() })
   }, [update])
 
+  const logMood = useCallback((date, mood) => {
+    setState(prev => {
+      const next = { ...prev, moodLog: { ...prev.moodLog, [date]: mood } }
+      saveState(next)
+      return next
+    })
+  }, [])
+
+  const completeWeekCheckIn = useCallback((weekNum, data) => {
+    setState(prev => {
+      const next = { ...prev, weekCheckIns: { ...prev.weekCheckIns, [weekNum]: data } }
+      saveState(next)
+      return next
+    })
+  }, [])
+
+  const setDevDay = useCallback((dayNum) => {
+    setState(prev => {
+      const d = new Date()
+      d.setDate(d.getDate() - (dayNum - 1))
+      const newInstallDate = d.toISOString().slice(0, 10)
+      const weekNum = Math.floor((dayNum - 1) / 7) + 1
+      const today = todayISO()
+      const newMoodLog = { ...prev.moodLog }
+      delete newMoodLog[today]
+      const newWeekCheckIns = { ...prev.weekCheckIns }
+      delete newWeekCheckIns[weekNum]
+      const next = {
+        ...prev,
+        installDate: newInstallDate,
+        moodLog: newMoodLog,
+        weekCheckIns: newWeekCheckIns,
+        letterSeenDay7: dayNum < 7 ? false : prev.letterSeenDay7,
+        screeningNudgeResponse: dayNum < 21 ? null : prev.screeningNudgeResponse,
+      }
+      saveState(next)
+      return next
+    })
+  }, [])
+
+  const markLetterSeen = useCallback(() => {
+    update({ letterSeenDay7: true })
+  }, [update])
+
+  const respondToScreeningNudge = useCallback((response) => {
+    update({ screeningNudgeResponse: response })
+  }, [update])
+
   const logPeriod = useCallback((date) => {
     setState(prev => {
       const logs = prev.periodLogs || []
@@ -278,6 +330,7 @@ export function AppProvider({ children }) {
   const currentWeekNum = Math.floor(daysSinceInstall / 7) + 1
   const currentWeekFlower = state.flowerPicks[currentWeekNum] || state.flowerType || 'rose'
   const showWeeklyPicker = !state.flowerPicks[currentWeekNum]
+  const needsWeekCheckIn = !state.weekCheckIns[currentWeekNum]
   const todayCardResponse = state.cardResponses[today] || null
   const todayPeriod = (state.periodLogs || []).includes(today)
 
@@ -321,6 +374,12 @@ export function AppProvider({ children }) {
     markCheckinNudgeDone,
     toggleWhisperReaction,
     logCycleDay,
+    logMood,
+    markLetterSeen,
+    respondToScreeningNudge,
+    completeWeekCheckIn,
+    setDevDay,
+    needsWeekCheckIn,
   }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

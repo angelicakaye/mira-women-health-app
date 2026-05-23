@@ -7,7 +7,7 @@ import busSchedule from '../../data/busSchedule.json'
 import styles from './Mammogram.module.css'
 
 export default function BusSchedule() {
-  const { setBookingDetails, confirmBooking } = useApp()
+  const { setBookingDetails } = useApp()
   const navigate = useNavigate()
 
   function handleSelect(bus) {
@@ -16,10 +16,11 @@ export default function BusSchedule() {
       clinicId: bus.id,
       date: bus.displayDates,
       time: bus.times,
+      location: bus.location,
+      address: bus.address,
     }
     setBookingDetails(details)
-    confirmBooking(details)
-    navigate('/mammogram/confirmed')
+    navigate('/mammogram/bus-details')
   }
 
   return (

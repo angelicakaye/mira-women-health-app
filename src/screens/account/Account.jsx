@@ -3,15 +3,17 @@ import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
 import Flower from '../../components/flower/Flower'
-import FlowerPicker from '../../components/flower/FlowerPicker'
+import HeartAvatar from '../../components/flower/HeartAvatar'
 import Button from '../../components/shared/Button'
 import styles from './Account.module.css'
 
 function flowerStageForDays(dayCount) {
-  if (dayCount >= 21) return 4
-  if (dayCount >= 11) return 3
-  if (dayCount >= 6)  return 2
-  return 1
+  if (dayCount >= 21) return 5
+  if (dayCount >= 14) return 4
+  if (dayCount >= 7)  return 3
+  if (dayCount >= 4)  return 2
+  if (dayCount >= 2)  return 1
+  return 0
 }
 
 function getWeekDays(installDate, weekNum) {
@@ -33,10 +35,11 @@ function weekStage(habitLogs, installDate, weekNum) {
     return log && (log.water || log.sleep || log.movement || log.selfCare)
   }).length
   if (activeDays === 0) return 0
-  if (activeDays <= 2) return 1
-  if (activeDays === 3) return 2
-  if (activeDays <= 5) return 3
-  return 4
+  if (activeDays === 1) return 1
+  if (activeDays === 2) return 2
+  if (activeDays === 3) return 3
+  if (activeDays <= 5) return 4
+  return 5
 }
 
 function groupPeriodIntoCycles(periodLogs) {
@@ -74,7 +77,7 @@ export default function Account() {
   const {
     userName, dayCount,
     habitLogs, periodLogs, bseLogs, bookings,
-    whispersContributed, flowerType, setFlowerType,
+    whispersContributed, flowerType,
     installDate, currentWeekNum, flowerPicks,
   } = useApp()
   const navigate = useNavigate()
@@ -88,7 +91,7 @@ export default function Account() {
 
   // Flowers grown = past weeks at stage 4
   const bloomedWeeks = Array.from({ length: currentWeekNum - 1 }, (_, i) => i + 1)
-    .filter(wk => weekStage(habitLogs, installDate, wk) === 4).length
+    .filter(wk => weekStage(habitLogs, installDate, wk) === 5).length
 
   // Period cycles
   const periodCycles = groupPeriodIntoCycles(periodLogs || [])
@@ -108,7 +111,7 @@ export default function Account() {
         {/* ── Hero ── */}
         <div className={styles.hero}>
           <div className={styles.heroFlower}>
-            <Flower type={flowerType || 'rose'} waterCount={heroFlowerStage} size={80} />
+            <HeartAvatar size={80} />
           </div>
           <div className={styles.heroText}>
             <h1 className={styles.heroName}>{userName}</h1>
@@ -137,12 +140,6 @@ export default function Account() {
             <span className={styles.statNum}>{(whispersContributed || []).length}</span>
             <span className={styles.statLabel}>Whispers</span>
           </div>
-        </div>
-
-        {/* ── Your flower picker ── */}
-        <div className={styles.section}>
-          <p className={styles.sectionLabel}>Your flower</p>
-          <FlowerPicker selected={flowerType || 'rose'} onChange={setFlowerType} />
         </div>
 
         {/* ── Garden grid ── */}

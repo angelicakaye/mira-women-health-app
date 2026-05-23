@@ -1,0 +1,262 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: #FDF4F7;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 52px 24px 40px;
+  animation: fadeIn 0.35s ease forwards;
+  overflow-y: auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dismissBtn {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(180, 120, 160, 0.08);
+  border: none;
+  color: #C090A8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.dismissBtn:hover { background: rgba(180, 120, 160, 0.15); }
+
+.miraWrap {
+  margin-top: 4px;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+
+.bubble {
+  background: white;
+  border-radius: 22px;
+  padding: 18px 26px;
+  max-width: 300px;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(180, 120, 160, 0.10);
+  position: relative;
+  margin-bottom: 28px;
+  flex-shrink: 0;
+}
+
+.bubble::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid white;
+}
+
+.bubbleText {
+  font-size: 18px;
+  font-weight: 400;
+  color: #993556;
+  text-align: center;
+  line-height: 1.45;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+/* ── Mood chips ── */
+
+.chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 320px;
+}
+
+.chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 16px 12px;
+  border-radius: 18px;
+  background: white;
+  border: none;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #993556;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(180, 120, 160, 0.10);
+  transition: all 0.15s ease;
+  min-width: 64px;
+}
+
+.chip:active {
+  transform: scale(0.95);
+  background: rgba(244, 192, 209, 0.2);
+}
+
+.chipEmoji {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* ── Free text ── */
+
+.freeTextWrap {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.freeText {
+  width: 100%;
+  padding: 12px 40px 12px 16px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(244, 192, 209, 0.5);
+  background: white;
+  font-family: inherit;
+  font-size: 14px;
+  color: #72243E;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.freeText::placeholder { color: #D4A8BE; }
+.freeText:focus { border-color: rgba(180, 120, 160, 0.5); }
+
+.freeTextSend {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(244, 192, 209, 0.35);
+  border: none;
+  color: #993556;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.13s;
+}
+
+.freeTextSend:hover { background: rgba(244, 192, 209, 0.55); }
+
+/* ── Flower picker ── */
+
+.flowerRow {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.flowerOpt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 12px 12px;
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 2px 12px rgba(180, 120, 160, 0.08);
+  transition: all 0.15s ease;
+  min-width: 84px;
+}
+
+.flowerOpt:active { transform: scale(0.96); }
+
+.flowerOptActive {
+  border-color: rgba(196, 123, 154, 0.5);
+  background: rgba(244, 192, 209, 0.10);
+}
+
+.flowerLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: #993556;
+}
+
+/* ── Focus options ── */
+
+.focusOpts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.focusOpt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 20px;
+  background: white;
+  border: none;
+  border-radius: 18px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 2px 12px rgba(180, 120, 160, 0.08);
+  transition: all 0.13s ease;
+}
+
+.focusOpt:active {
+  transform: scale(0.98);
+  background: rgba(244, 192, 209, 0.12);
+}
+
+.focusEmoji {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.focusLabel {
+  font-size: 15px;
+  font-weight: 400;
+  color: #72243E;
+}
+
+/* ── Later button ── */
+
+.laterBtn {
+  margin-top: auto;
+  padding-top: 28px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 13px;
+  color: #D4A8BE;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+}
+
+.laterBtn:hover { color: #C090A8; }

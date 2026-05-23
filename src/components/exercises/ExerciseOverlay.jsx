@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Lumi from '../lumi/Lumi'
+import Mira from '../mira/Mira'
 import styles from './ExerciseOverlay.module.css'
 
 export default function ExerciseOverlay({ exercise, onComplete, onDismiss }) {
@@ -35,7 +35,7 @@ export default function ExerciseOverlay({ exercise, onComplete, onDismiss }) {
 
       {/* Lumi */}
       <div className={styles.lumiWrap}>
-        <Lumi state="glowing" size={180} />
+        <Mira state="glowing" size={180} />
       </div>
 
       {/* Step text */}

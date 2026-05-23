@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
-import Lumi from '../../components/lumi/Lumi'
+import Mira from '../../components/mira/Mira'
 import styles from './GoalScreen.module.css'
 
 const GOALS = [
@@ -14,7 +14,7 @@ const GOALS = [
       </svg>
     ),
     title: 'Daily support & gentle habits',
-    desc: 'Build a quiet daily practice. Lumi walks beside you — no pressure, no timelines.',
+    desc: 'Build a quiet daily practice. Mira walks beside you — no pressure, no timelines.',
     sub: 'Water · Sleep · Movement · Whispers from other women',
   },
   {
@@ -58,7 +58,7 @@ export default function GoalScreen() {
     <Layout>
       <div className={styles.page}>
         <div className={styles.header}>
-          <Lumi state="default" size={80} />
+          <Mira state="default" size={80} />
           <h1 className={styles.title}>What brings you here, {userName}?</h1>
           <p className={styles.subtitle}>
             Mira meets you where you are. Choose what feels right — you can always change your mind.
@@ -86,7 +86,7 @@ export default function GoalScreen() {
         </div>
 
         <p className={styles.footnote}>
-          Lumi doesn't judge your choice. She just shows up.
+          Mira doesn't judge your choice. She just shows up.
         </p>
       </div>
     </Layout>

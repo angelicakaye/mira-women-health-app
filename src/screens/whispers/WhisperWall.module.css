@@ -308,6 +308,154 @@
 .sendBtn:disabled { background: rgba(196,123,154,0.35); cursor: default; }
 .sendBtn:not(:disabled):active { background: #72243E; }
 
+/* ── Mira affirmation card ── */
+.miraCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(244,192,209,0.25);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+
+.miraCardAvatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.miraCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.miraCardLabel {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #C47B9A;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.miraCardText {
+  font-size: 14px;
+  color: #72243E;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ── Letter card ── */
+.letterCard {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(244,192,209,0.12));
+  border: 1.5px solid rgba(196,123,154,0.25);
+  border-radius: 16px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.letterCard:active { border-color: rgba(196,123,154,0.5); }
+
+.letterCardTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.letterFlower { flex-shrink: 0; }
+
+.letterCardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #72243E;
+}
+
+.letterCardSub {
+  font-size: 11.5px;
+  color: #C090A8;
+  margin-top: 2px;
+}
+
+.letterChevron {
+  margin-left: auto;
+  font-size: 13px;
+  color: #C090A8;
+}
+
+.letterCardBody {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(244,192,209,0.2);
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.letterPara {
+  font-size: 13.5px;
+  color: #4A2232;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.letterSign {
+  font-size: 13px;
+  color: #C47B9A;
+  font-style: italic;
+  text-align: center;
+}
+
+/* ── "Coming soon" card ── */
+.comingCard {
+  background: rgba(255,255,255,0.5);
+  border: 1px dashed rgba(196,123,154,0.3);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+
+.comingText {
+  font-size: 13px;
+  color: #C090A8;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ── Section label ── */
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #C090A8;
+  padding: 4px 0;
+}
+
+/* ── Own whispers ── */
+.ownWhisper {
+  background: rgba(153,53,86,0.06);
+  border: 1px solid rgba(153,53,86,0.12);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.ownWhisperText {
+  font-size: 14px;
+  color: #72243E;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }

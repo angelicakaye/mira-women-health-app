@@ -26,6 +26,7 @@
   overflow-y: auto;
 }
 
-.withNav {
-  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+.navSpacer {
+  flex-shrink: 0;
+  height: calc(140px + env(safe-area-inset-bottom, 0px));
 }

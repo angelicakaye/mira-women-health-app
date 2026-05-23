@@ -18,7 +18,7 @@ export default function FlowerPicker({ selected, onChange }) {
           aria-pressed={selected === type}
         >
           <div className={styles.flowerWrap}>
-            <Flower type={type} waterCount={4} size={64} />
+            <Flower type={type} waterCount={5} size={64} />
           </div>
           <span className={styles.label}>{label}</span>
           {selected === type && (

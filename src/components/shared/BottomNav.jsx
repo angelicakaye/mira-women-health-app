@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import Lumi from '../lumi/Lumi'
+import Mira from '../mira/Mira'
 import styles from './BottomNav.module.css'
 
 /* ── Tab icons ── */
@@ -104,7 +104,7 @@ export default function BottomNav() {
             aria-current={active ? 'page' : undefined}
           >
             {id === 'today'
-              ? <div className={styles.lumiWrap}><Lumi state={active ? 'glowing' : 'default'} size={32} /></div>
+              ? <div className={styles.lumiWrap}><Mira state={active ? 'glowing' : 'default'} size={32} /></div>
               : <Icon active={active} />
             }
             <span className={styles.label}>{label}</span>

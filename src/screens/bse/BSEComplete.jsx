@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
-import Lumi from '../../components/lumi/Lumi'
+import Mira from '../../components/mira/Mira'
 import Button from '../../components/shared/Button'
 import styles from './BSE.module.css'
 
@@ -29,7 +29,7 @@ export default function BSEComplete() {
     <Layout>
       <div className={styles.page} style={{ alignItems: 'center', justifyContent: 'center' }}>
         <div className={styles.completionWrap}>
-          <Lumi state="glowing" size={180} />
+          <Mira state="glowing" size={180} />
           <h1 className={styles.completionTitle}>You did it, {userName}.</h1>
           <p className={styles.completionSub}>Five minutes for yourself. That's brave.</p>
 

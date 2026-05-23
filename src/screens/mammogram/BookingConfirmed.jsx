@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
-import Lumi from '../../components/lumi/Lumi'
+import Mira from '../../components/mira/Mira'
 import Button from '../../components/shared/Button'
 import clinics from '../../data/clinics.json'
 import busSchedule from '../../data/busSchedule.json'
@@ -32,12 +32,12 @@ export default function BookingConfirmed() {
   return (
     <Layout>
       <div className={styles.confirmedPage}>
-        <Lumi state="glowing" size={180} />
+        <Mira state="glowing" size={180} />
 
         <div>
           <h1 className={styles.confirmedTitle}>You're going, {userName}.</h1>
           <p className={styles.confirmedSub} style={{ marginTop: 12 }}>
-            That took courage. Lumi is proud of you.
+            That took courage. Mira is proud of you.
           </p>
         </div>
 

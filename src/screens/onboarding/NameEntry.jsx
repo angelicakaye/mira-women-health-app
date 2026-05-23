@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
-import Lumi from '../../components/lumi/Lumi'
+import Mira from '../../components/mira/Mira'
 import Button from '../../components/shared/Button'
 import styles from './NameEntry.module.css'
 
@@ -23,8 +23,8 @@ export default function NameEntry() {
     <Layout>
       <div className={styles.page}>
         <div className={styles.top}>
-          <Lumi state="default" size={120} />
-          <h1 className={styles.title}>Meet Lumi</h1>
+          <Mira state="default" size={120} />
+          <h1 className={styles.title}>Meet Mira</h1>
           <p className={styles.subtitle}>
             She'll walk beside you. Gently. Daily.<br />Without pushing.
           </p>
@@ -55,7 +55,7 @@ export default function NameEntry() {
           </Button>
         </form>
 
-        <p className={styles.footnote}>No sign-up. No account. Just you and Lumi.</p>
+        <p className={styles.footnote}>No sign-up. No account. Just you and Mira.</p>
       </div>
     </Layout>
   )

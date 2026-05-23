@@ -2,12 +2,69 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
-import Lumi from '../../components/lumi/Lumi'
+import MiraCard from '../../components/mira/MiraCard'
+import MiraLetter from '../../components/mira/MiraLetter'
+import MiraCheckIn from '../../components/mira/MiraCheckIn'
+import Mira from '../../components/mira/Mira'
 import HabitRings from '../../components/habits/HabitRings'
 import RingHistory from '../../components/habits/RingHistory'
 import CycleTracker from '../../components/habits/CycleTracker'
 import ExerciseOverlay from '../../components/exercises/ExerciseOverlay'
+import DevDayPicker from '../../components/dev/DevDayPicker'
 import styles from './Home.module.css'
+
+const MOOD_CHIPS = [
+  { value: 'heavy',  label: 'Heavy',  emoji: '🌧️' },
+  { value: 'tired',  label: 'Tired',  emoji: '😴' },
+  { value: 'okay',   label: 'Okay',   emoji: '🌿' },
+  { value: 'good',   label: 'Good',   emoji: '🌸' },
+  { value: 'bright', label: 'Bright', emoji: '✨' },
+]
+
+function CheckInBanner({ onMoodSelect }) {
+  const [text, setText] = useState('')
+
+  function submitText() {
+    const trimmed = text.trim()
+    if (trimmed) onMoodSelect(trimmed)
+  }
+
+  return (
+    <div className={styles.checkInBanner}>
+      <div className={styles.checkInBannerMira}>
+        <Mira state="default" size={44} />
+      </div>
+      <div className={styles.checkInBannerBody}>
+        <p className={styles.checkInBannerQ}>How are you feeling?</p>
+        <div className={styles.checkInBannerChips}>
+          {MOOD_CHIPS.map(c => (
+            <button key={c.value} className={styles.checkInChip} onClick={() => onMoodSelect(c.value)}>
+              <span>{c.emoji}</span>
+              <span>{c.label}</span>
+            </button>
+          ))}
+        </div>
+        <div className={styles.checkInTextRow}>
+          <input
+            className={styles.checkInTextInput}
+            value={text}
+            onChange={e => setText(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && submitText()}
+            placeholder="or in your own words…"
+            maxLength={80}
+          />
+          {text.trim() && (
+            <button className={styles.checkInTextSend} onClick={submitText} aria-label="Submit">
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                <path d="M7 12V2M3 6l4-4 4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const AFFIRMATIONS = {
   support: [
@@ -187,6 +244,41 @@ const FOCUS_ACTIVITIES = {
       ],
     },
   ],
+  relax: [
+    {
+      id: 'breathe',
+      name: 'Box breathing',
+      desc: 'Slow your nervous system',
+      duration: '3 min',
+      steps: [
+        'Find a comfortable position. Close your eyes if that feels okay.',
+        'Breathe in for 4 counts… hold for 4… breathe out for 4… hold for 4.',
+        "One more round. In… hold… out… hold. You're here. That's enough.",
+      ],
+    },
+    {
+      id: 'body-scan',
+      name: 'Gentle body scan',
+      desc: 'Check in from head to toe',
+      duration: '4 min',
+      steps: [
+        'Close your eyes. Notice your feet on the floor. What do they feel?',
+        'Slowly move your attention up — legs, belly, chest, shoulders. No judgement.',
+        'What is your body holding today? Just noticing is enough.',
+      ],
+    },
+    {
+      id: 'still',
+      name: '2 minutes of stillness',
+      desc: 'Just be here',
+      duration: '2 min',
+      steps: [
+        'Sit somewhere you won\'t be disturbed. Set a 2-minute timer.',
+        'Let your eyes go soft. Notice sounds. Notice your breath.',
+        "You don't have to do anything. Being here is enough.",
+      ],
+    },
+  ],
 }
 
 function getGreeting(name) {
@@ -206,6 +298,7 @@ const FOCUS_OPTIONS = [
   { id: 'support',   label: 'Daily support',   desc: 'Gentle habits & self-care',      icon: '🌿' },
   { id: 'screening', label: 'Screening',        desc: 'Understanding my options',        icon: '🔍' },
   { id: 'body',      label: 'Know my body',     desc: 'Learning to listen inward',       icon: '✨' },
+  { id: 'relax',     label: 'To relax',         desc: 'Wind down and breathe',           icon: '🌙' },
 ]
 
 function FocusSection({ userGoal, onSetGoal, dayCount, todaySelfCare, onBeginActivity, navigate }) {
@@ -301,51 +394,46 @@ function FocusSection({ userGoal, onSetGoal, dayCount, todaySelfCare, onBeginAct
 
 export default function Home() {
   const {
-    userName, dayCount, userGoal, showWhisper,
+    userName, dayCount, userGoal,
     setUserGoal, today, todayHabits, logHabit,
+    letterSeenDay7, needsWeekCheckIn,
   } = useApp()
-  const [lumiState, setLumiState] = useState('default')
+  const [miraGlowing, setMiraGlowing] = useState(false)
   const [activeExercise, setActiveExercise] = useState(null)
   const [showRingHistory, setShowRingHistory] = useState(false)
+  const [showLetter, setShowLetter] = useState(false)
+  const [showCheckIn, setShowCheckIn] = useState(needsWeekCheckIn)
+  const [dismissedMood, setDismissedMood] = useState(null)
   const navigate = useNavigate()
 
-  const affirmations = AFFIRMATIONS[userGoal] || DEFAULT_AFFIRMATIONS
-  const affirmation = affirmations[(dayCount - 1) % affirmations.length]
   const todaySelfCare = !!todayHabits.selfCare
 
   useEffect(() => {
-    if (activeExercise) return
-    const timer = setTimeout(() => {
-      if (lumiState === 'glowing') setLumiState('default')
-    }, 2500)
-    return () => clearTimeout(timer)
-  }, [lumiState, activeExercise])
+    if (needsWeekCheckIn) setShowCheckIn(true)
+  }, [needsWeekCheckIn])
 
+  // Show Day 7 letter once on first eligibility, but only after check-in is done
   useEffect(() => {
-    if (activeExercise || lumiState !== 'default') return
-    const idleTimer = setTimeout(() => setLumiState('resting'), 10000)
-    return () => clearTimeout(idleTimer)
-  }, [activeExercise, lumiState])
+    if (dayCount >= 7 && !letterSeenDay7 && !showCheckIn) setShowLetter(true)
+  }, [dayCount, letterSeenDay7, showCheckIn])
 
   function handleAllHabits() {
-    setLumiState('glowing')
+    setMiraGlowing(true)
   }
 
   function handleBeginActivity(exercise) {
     setActiveExercise(exercise)
-    setLumiState('glowing')
+    setMiraGlowing(true)
   }
 
   function handleActivityComplete() {
     logHabit(today, 'selfCare')
     setActiveExercise(null)
-    setLumiState('glowing')
-    setTimeout(() => setLumiState('default'), 2500)
+    setMiraGlowing(true)
   }
 
   function handleActivityDismiss() {
     setActiveExercise(null)
-    setLumiState('default')
   }
 
   return (
@@ -357,19 +445,19 @@ export default function Home() {
           <span className={styles.dayBadge}>{getTodayBadge()}</span>
         </div>
 
-        {/* Lumi + affirmation */}
-        <div className={styles.lumiWrap}>
-          <Lumi state={lumiState} size={130} />
-          <p className={styles.lumiMessage}>
-            {lumiState === 'glowing'
-              ? dayCount <= 7
-                ? 'You showed up.'
-                : dayCount <= 14
-                ? 'Noticing is everything.'
-                : 'You are showing up for yourself.'
-              : affirmation}
-          </p>
-        </div>
+        {/* Mira check-in */}
+        <MiraCard
+          isGlowing={miraGlowing}
+          onGlowEnd={() => setMiraGlowing(false)}
+          onScreeningReady={() => navigate('/screening')}
+        />
+
+        {needsWeekCheckIn && !showCheckIn && (
+          <CheckInBanner onMoodSelect={mood => {
+            setDismissedMood(mood)
+            setShowCheckIn(true)
+          }} />
+        )}
 
         {/* ── Your Focus + activity ── */}
         <FocusSection
@@ -398,17 +486,6 @@ export default function Home() {
           <CycleTracker />
         </div>
 
-        {/* Whisper link */}
-        {showWhisper && (
-          <div className={styles.section}>
-            <div className={styles.whisperLink}>
-              <button className={styles.whisperBtn} onClick={() => navigate('/whispers')}>
-                <span className={styles.whisperDot} />
-                Read what other women are saying
-              </button>
-            </div>
-          </div>
-        )}
       </div>
 
       {activeExercise && (
@@ -420,6 +497,18 @@ export default function Home() {
       )}
 
       {showRingHistory && <RingHistory onClose={() => setShowRingHistory(false)} />}
+
+      {showLetter && <MiraLetter onClose={() => setShowLetter(false)} />}
+
+      {showCheckIn && (
+        <MiraCheckIn
+          initialMood={dismissedMood}
+          onComplete={() => { setShowCheckIn(false); setDismissedMood(null) }}
+          onDismiss={() => { setShowCheckIn(false); setDismissedMood(null) }}
+        />
+      )}
+
+      <DevDayPicker />
     </Layout>
   )
 }

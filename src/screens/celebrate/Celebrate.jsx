@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
-import Lumi from '../../components/lumi/Lumi'
+import Mira from '../../components/mira/Mira'
 import Button from '../../components/shared/Button'
 import styles from './Celebrate.module.css'
 
@@ -22,7 +22,7 @@ export default function Celebrate() {
   return (
     <Layout>
       <div className={styles.page}>
-        <Lumi state="glowing" size={160} />
+        <Mira state="glowing" size={160} />
 
         <div className={styles.content}>
           <h1 className={styles.title}>You did it, {userName}.</h1>

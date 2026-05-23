@@ -61,7 +61,7 @@ export default function MammogramChooser() {
         </div>
 
         <p className={styles.footnote}>
-          Not today is always an option. Lumi will be here when you're ready.
+          Not today is always an option. Mira will be here when you're ready.
         </p>
       </div>
     </Layout>

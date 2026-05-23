@@ -20,6 +20,8 @@ import BookingDetails from './screens/mammogram/BookingDetails'
 import BookSlot from './screens/mammogram/BookSlot'
 import BookingConfirm from './screens/mammogram/BookingConfirm'
 import BookingConfirmed from './screens/mammogram/BookingConfirmed'
+import BusBookingDetails from './screens/mammogram/BusBookingDetails'
+import BusBookingConfirm from './screens/mammogram/BusBookingConfirm'
 
 import CheckIn from './screens/checkin/CheckIn'
 import Celebrate from './screens/celebrate/Celebrate'
@@ -56,6 +58,8 @@ export default function App() {
       <Route path="/mammogram" element={<RequireUser><MammogramChooser /></RequireUser>} />
       <Route path="/mammogram/clinic-list" element={<RequireUser><ClinicList /></RequireUser>} />
       <Route path="/mammogram/bus-schedule" element={<RequireUser><BusSchedule /></RequireUser>} />
+      <Route path="/mammogram/bus-details" element={<RequireUser><BusBookingDetails /></RequireUser>} />
+      <Route path="/mammogram/bus-confirm" element={<RequireUser><BusBookingConfirm /></RequireUser>} />
       <Route path="/mammogram/details" element={<RequireUser><BookingDetails /></RequireUser>} />
       <Route path="/mammogram/book" element={<RequireUser><BookSlot /></RequireUser>} />
       <Route path="/mammogram/confirm" element={<RequireUser><BookingConfirm /></RequireUser>} />

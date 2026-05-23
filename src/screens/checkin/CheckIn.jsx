@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
 import PageHeader from '../../components/shared/PageHeader'
-import Lumi from '../../components/lumi/Lumi'
+import Mira from '../../components/mira/Mira'
 import clinics from '../../data/clinics.json'
 import busSchedule from '../../data/busSchedule.json'
 import styles from './CheckIn.module.css'
@@ -34,7 +34,7 @@ export default function CheckIn() {
     <Layout>
       <PageHeader showBack={false} />
       <div className={styles.page}>
-        <Lumi state={hasBookings ? 'glowing' : 'default'} size={96} />
+        <Mira state={hasBookings ? 'glowing' : 'default'} size={96} />
 
         <div className={styles.content}>
           <h1 className={styles.title}>Your journey, {userName}</h1>
@@ -97,7 +97,7 @@ export default function CheckIn() {
             <span className={styles.optionIcon}>○</span>
             <div className={styles.optionText}>
               <span className={styles.optionLabel}>Not yet</span>
-              <span className={styles.optionSub}>That's okay. Lumi will be here.</span>
+              <span className={styles.optionSub}>That's okay. Mira will be here.</span>
             </div>
           </button>
         </div>

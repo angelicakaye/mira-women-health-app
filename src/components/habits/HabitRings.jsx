@@ -26,18 +26,19 @@ function weekStage(habitLogs, installDate, weekNum) {
     return log && (log.water || log.sleep || log.movement || log.selfCare)
   }).length
   if (activeDays === 0) return 0
-  if (activeDays <= 2) return 1
-  if (activeDays === 3) return 2
-  if (activeDays <= 5) return 3
-  return 4
+  if (activeDays === 1) return 1
+  if (activeDays === 2) return 2
+  if (activeDays === 3) return 3
+  if (activeDays <= 5) return 4
+  return 5
 }
 
 export default function HabitRings({ onComplete }) {
   const {
     todayHabits, today, logHabit,
     installDate, habitLogs,
-    currentWeekNum, currentWeekFlower, showWeeklyPicker,
-    flowerPicks, flowerType, setWeekFlower,
+    currentWeekNum, currentWeekFlower,
+    flowerPicks, flowerType,
   } = useApp()
 
   const doneCount = HABITS.filter(h => todayHabits[h]).length
@@ -49,43 +50,6 @@ export default function HabitRings({ onComplete }) {
     logHabit(today, habit)
     const after = { ...todayHabits, [habit]: true }
     if (HABITS.every(h => after[h])) onComplete?.()
-  }
-
-  // ── Weekly picker ──
-  if (showWeeklyPicker) {
-    return (
-      <div className={styles.wrap}>
-        <div className={styles.pickerCard}>
-          <p className={styles.pickerTitle}>
-            {currentWeekNum === 1 ? 'Choose your first flower to grow.' : `Week ${currentWeekNum} — pick your flower.`}
-          </p>
-          <p className={styles.pickerSub}>It will grow as you build your habits this week.</p>
-          <div className={styles.pickerRow}>
-            {['rose', 'peony', 'lily'].map(type => (
-              <button
-                key={type}
-                className={styles.pickerOption}
-                onClick={() => setWeekFlower(currentWeekNum, type)}
-              >
-                <Flower type={type} waterCount={4} size={60} />
-                <span className={styles.pickerOptionLabel}>{FLOWER_LABELS[type]}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.list}>
-          {HABITS.map(habit => (
-            <HabitRing
-              key={habit}
-              habit={habit}
-              completed={!!todayHabits[habit]}
-              onTap={() => handleHabit(habit)}
-            />
-          ))}
-        </div>
-      </div>
-    )
   }
 
   // ── Garden + habit cards ──
@@ -100,7 +64,7 @@ export default function HabitRings({ onComplete }) {
               <div key={wk} className={styles.pastFlower}>
                 <Flower
                   type={flowerPicks[wk] || flowerType || 'rose'}
-                  waterCount={4}
+                  waterCount={5}
                   size={38}
                 />
               </div>
@@ -115,11 +79,13 @@ export default function HabitRings({ onComplete }) {
 
         <div className={styles.gardenMeta}>
           <p className={styles.gardenLabel}>
-            {currentStage === 4
+            {currentStage === 5
               ? 'In full bloom 🌸'
               : currentStage === 0
               ? 'Your flower is waiting to grow'
-              : currentStage <= 2
+              : currentStage === 1
+              ? 'Just sprouting…'
+              : currentStage <= 3
               ? 'Growing…'
               : 'Almost blooming'}
           </p>

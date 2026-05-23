@@ -4,12 +4,11 @@ import BottomNav from './BottomNav'
 import StatusBar from './StatusBar'
 import styles from './Layout.module.css'
 
-const NO_NAV_PATHS = ['/onboarding', '/bse/step', '/mammogram/details', '/mammogram/book', '/mammogram/confirm']
+const L1_PATHS = ['/home', '/whispers', '/screening', '/account']
 
 function shouldShowNav(pathname, userName) {
   if (!userName) return false
-  if (pathname === '/') return false
-  return !NO_NAV_PATHS.some(p => pathname.startsWith(p))
+  return L1_PATHS.includes(pathname)
 }
 
 export default function Layout({ children, className = '' }) {
@@ -21,8 +20,9 @@ export default function Layout({ children, className = '' }) {
     <div className={styles.shell}>
       <div className={`${styles.container} ${className}`}>
         <StatusBar />
-        <div className={`${styles.content} ${showNav ? styles.withNav : ''}`}>
+        <div className={styles.content}>
           {children}
+          {showNav && <div className={styles.navSpacer} />}
         </div>
         {showNav && <BottomNav />}
       </div>

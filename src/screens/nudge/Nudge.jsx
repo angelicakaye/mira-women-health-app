@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
 import PageHeader from '../../components/shared/PageHeader'
-import Lumi from '../../components/lumi/Lumi'
+import Mira from '../../components/mira/Mira'
 import Button from '../../components/shared/Button'
 import styles from './Nudge.module.css'
 
@@ -23,7 +23,7 @@ export default function Nudge() {
     <Layout>
       <PageHeader />
       <div className={styles.page}>
-        <Lumi state="glowing" size={130} />
+        <Mira state="glowing" size={130} />
 
         <div className={styles.content}>
           <p className={styles.prelude}>You've been showing up for yourself, {userName}.</p>
@@ -48,7 +48,7 @@ export default function Nudge() {
         </div>
 
         <p className={styles.footnote}>
-          Lumi will be here whenever you're ready.
+          Mira will be here whenever you're ready.
         </p>
       </div>
     </Layout>
