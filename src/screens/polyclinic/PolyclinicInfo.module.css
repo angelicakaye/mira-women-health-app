@@ -1,0 +1,183 @@
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 40px;
+  gap: 20px;
+  animation: fadeIn 0.35s ease forwards;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #72243E;
+  line-height: 1.3;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #B07090;
+  line-height: 1.6;
+}
+
+/* ── Reassurance card ── */
+.infoCard {
+  background: rgba(244, 192, 209, 0.18);
+  border-radius: 16px;
+  padding: 16px 18px;
+  border-left: 3px solid #F4C0D1;
+}
+
+.infoText {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #5A3040;
+}
+
+/* ── Steps ── */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stepRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.stepNum {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #F4C0D1;
+  color: #72243E;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.stepLabel {
+  font-size: 14.5px;
+  color: #5A3040;
+  line-height: 1.55;
+}
+
+/* ── Contact card ── */
+.contactCard {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(244, 192, 209, 0.3);
+  border-radius: 16px;
+  padding: 4px 0;
+  overflow: hidden;
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+}
+
+.contactIcon {
+  color: #993556;
+  flex-shrink: 0;
+}
+
+.contactLabel {
+  font-size: 11.5px;
+  color: #C090A8;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.contactValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #72243E;
+}
+
+.contactDivider {
+  height: 1px;
+  background: rgba(244, 192, 209, 0.25);
+  margin: 0 16px;
+}
+
+/* ── Action cards ── */
+.actionCards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.actionCard {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #FAF9F7;
+  border: 1px solid rgba(244, 192, 209, 0.4);
+  border-radius: 18px;
+  padding: 16px 18px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.actionCard:active {
+  background: rgba(244, 192, 209, 0.15);
+  border-color: rgba(153, 53, 86, 0.2);
+}
+
+.actionCardIcon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  background: rgba(244, 192, 209, 0.22);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #993556;
+}
+
+.actionCardBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.actionCardTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #72243E;
+  margin-bottom: 3px;
+}
+
+.actionCardDesc {
+  font-size: 12.5px;
+  color: #B07090;
+}
+
+.actionCardChevron {
+  color: #C47B9A;
+  flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

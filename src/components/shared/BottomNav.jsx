@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useApp } from '../../context/AppContext'
 import Mira from '../mira/Mira'
 import styles from './BottomNav.module.css'
 
@@ -89,12 +90,14 @@ function getActiveTab(pathname) {
 export default function BottomNav() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { whisperPulse, clearWhisperPulse } = useApp()
   const activeTab = getActiveTab(location.pathname)
 
   return (
     <nav className={styles.nav}>
       {ALL_TABS.map(({ id, label, path, Icon }) => {
         const active = activeTab === id
+        const isPulsing = id === 'whispers' && whisperPulse
         return (
           <button
             key={id}
@@ -105,7 +108,14 @@ export default function BottomNav() {
           >
             {id === 'today'
               ? <div className={styles.lumiWrap}><Mira state={active ? 'glowing' : 'default'} size={32} /></div>
-              : <Icon active={active} />
+              : (
+                <span
+                  className={isPulsing ? styles.iconPulse : undefined}
+                  onAnimationEnd={isPulsing ? clearWhisperPulse : undefined}
+                >
+                  <Icon active={active} />
+                </span>
+              )
             }
             <span className={styles.label}>{label}</span>
           </button>

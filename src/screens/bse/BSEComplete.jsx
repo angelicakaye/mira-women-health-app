@@ -20,6 +20,11 @@ export default function BSEComplete() {
     setShowModal(true)
   }
 
+  function handleBookPolyclinic() {
+    logBse()
+    navigate('/polyclinic')
+  }
+
   function handleModalClose() {
     logBse()
     navigate('/home')
@@ -48,16 +53,20 @@ export default function BSEComplete() {
       {showModal && (
         <div className={styles.modalOverlay} onClick={handleModalClose}>
           <div className={styles.modal} onClick={e => e.stopPropagation()}>
-            <h2 className={styles.modalTitle}>Most changes are not cancer.</h2>
+            <h2 className={styles.modalTitle}>Talk to a doctor first.</h2>
             <p className={styles.modalBody}>
-              But it's always worth checking with your doctor. Please don't wait — the earlier you go, the better.
+              Most changes are not cancer. But noticing something is exactly the right instinct — please don't wait.
+              A polyclinic doctor can examine you and recommend whether you need a mammogram or further tests.
             </p>
             <div className={styles.modalContact}>
               <p className={styles.modalContactLabel}>Breast Cancer Foundation Singapore</p>
               <p className={styles.modalContactNum}>6275 6443</p>
             </div>
-            <Button variant="primary" size="lg" fullWidth onClick={handleModalClose}>
-              I'll make an appointment
+            <Button variant="primary" size="lg" fullWidth onClick={handleBookPolyclinic}>
+              Book a polyclinic appointment
+            </Button>
+            <Button variant="text" size="md" onClick={handleModalClose}>
+              I'll do this later
             </Button>
           </div>
         </div>

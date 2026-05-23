@@ -18,25 +18,28 @@ export default function MammogramChooser() {
         </div>
 
         <div className={styles.options}>
-          <button className={styles.optionCard} onClick={() => navigate('/mammogram/clinic-list')}>
+          {/* Polyclinic — recommended first step for under-40s */}
+          <button className={styles.optionCard} onClick={() => navigate('/polyclinic/choose')}>
             <div className={styles.optionIcon}>
               <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
                 <circle cx="22" cy="22" r="21" fill="#FEF0F5" stroke="#F4C0D1" strokeWidth="1.5"/>
                 <path d="M13 32V18a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14" stroke="#E8A0B8" strokeWidth="1.5" strokeLinecap="round"/>
                 <rect x="18" y="25" width="8" height="7" rx="1" fill="#F4C0D1" opacity="0.6"/>
                 <line x1="13" y1="32" x2="31" y2="32" stroke="#E8A0B8" strokeWidth="1.5" strokeLinecap="round"/>
-                <circle cx="22" cy="20" r="2.5" fill="#F4C0D1"/>
+                <path d="M20 20h4M22 18v4" stroke="#E8A0B8" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </div>
             <div className={styles.optionBody}>
-              <h2 className={styles.optionTitle}>Book at a clinic</h2>
-              <p className={styles.optionDesc}>Private rooms, appointments available</p>
+              <h2 className={styles.optionTitle}>Polyclinic appointment</h2>
+              <p className={styles.optionDesc}>See a doctor · get a recommendation</p>
+              <span className={styles.optionTag}>Recommended first step (under 40)</span>
             </div>
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className={styles.arrow}>
               <path d="M6.5 4l5 5-5 5" stroke="#993556" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
 
+          {/* Mobile bus — no referral needed */}
           <button className={styles.optionCard} onClick={() => navigate('/mammogram/bus-schedule')}>
             <div className={styles.optionIcon}>
               <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
@@ -52,12 +55,13 @@ export default function MammogramChooser() {
             </div>
             <div className={styles.optionBody}>
               <h2 className={styles.optionTitle}>Mobile screening bus</h2>
-              <p className={styles.optionDesc}>Community setting, walk-ins welcome</p>
+              <p className={styles.optionDesc}>No referral needed · walk-ins welcome</p>
             </div>
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className={styles.arrow}>
               <path d="M6.5 4l5 5-5 5" stroke="#993556" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
+
         </div>
 
         <p className={styles.footnote}>

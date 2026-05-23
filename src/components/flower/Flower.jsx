@@ -1,7 +1,8 @@
 const COLORS = {
-  rose:  { petal: '#E8607A', inner: '#C43060', center: '#8B1A3A', leaf: '#5A8A5A', stem: '#4E7A4E' },
-  peony: { petal: '#F0A0B8', inner: '#D47898', center: '#9A3858', leaf: '#5A8A5A', stem: '#4E7A4E' },
-  lily:  { petal: '#F4B8CC', inner: '#E090A8', center: '#B85070', leaf: '#5A8A5A', stem: '#4E7A4E' },
+  rose:   { petal: '#E8607A', inner: '#C43060', center: '#8B1A3A', leaf: '#5A8A5A', stem: '#4E7A4E' },
+  peony:  { petal: '#F0A0B8', inner: '#D47898', center: '#9A3858', leaf: '#5A8A5A', stem: '#4E7A4E' },
+  lily:   { petal: '#F4B8CC', inner: '#E090A8', center: '#B85070', leaf: '#5A8A5A', stem: '#4E7A4E' },
+  orchid: { petal: '#D4A0E0', inner: '#A660C4', center: '#6B3088', leaf: '#5A8A5A', stem: '#4E7A4E' },
 }
 
 function RoseBloom({ c }) {
@@ -63,8 +64,46 @@ function LilyBloom({ c }) {
   )
 }
 
+function OrchidBloom({ c }) {
+  return (
+    <g>
+      {/* Top sepal */}
+      <ellipse cx="50" cy="21" rx="7" ry="15" fill={c.petal} opacity="0.82" />
+      {/* Left sepal */}
+      <ellipse cx="34" cy="37" rx="14" ry="6" fill={c.petal} opacity="0.78"
+        transform="rotate(-15 34 37)" />
+      {/* Right sepal */}
+      <ellipse cx="66" cy="37" rx="14" ry="6" fill={c.petal} opacity="0.78"
+        transform="rotate(15 66 37)" />
+      {/* Left inner petal */}
+      <ellipse cx="41" cy="28" rx="5" ry="11" fill={c.inner} opacity="0.75"
+        transform="rotate(-25 41 28)" />
+      {/* Right inner petal */}
+      <ellipse cx="59" cy="28" rx="5" ry="11" fill={c.inner} opacity="0.75"
+        transform="rotate(25 59 28)" />
+      {/* Lip (labellum) */}
+      <ellipse cx="50" cy="47" rx="9" ry="10" fill={c.inner} opacity="0.88" />
+      <ellipse cx="50" cy="49" rx="5" ry="6" fill={c.center} opacity="0.3" />
+      <circle cx="50" cy="36" r="4" fill={c.center} />
+    </g>
+  )
+}
+
 // Half-open bud (stage 4) — petals starting to unfurl
 function HalfBloom({ c, type }) {
+  if (type === 'orchid') {
+    return (
+      <g>
+        <ellipse cx="50" cy="24" rx="6" ry="12" fill={c.petal} opacity="0.80" />
+        <ellipse cx="37" cy="36" rx="10" ry="5" fill={c.petal} opacity="0.75"
+          transform="rotate(-15 37 36)" />
+        <ellipse cx="63" cy="36" rx="10" ry="5" fill={c.petal} opacity="0.75"
+          transform="rotate(15 63 36)" />
+        <ellipse cx="50" cy="44" rx="7" ry="8" fill={c.inner} opacity="0.82" />
+        <circle cx="50" cy="36" r="3.5" fill={c.center} />
+      </g>
+    )
+  }
   if (type === 'lily') {
     return (
       <g>
@@ -185,8 +224,9 @@ export default function Flower({ type = 'rose', waterCount = 0, size = 100 }) {
             stroke={c.stem} strokeWidth="3.5" strokeLinecap="round" fill="none" />
           <path d="M 50 74 Q 34 67 32 77 Q 40 78 50 74" fill={c.leaf} />
           <path d="M 50 60 Q 66 53 68 63 Q 60 64 50 60" fill={c.leaf} />
-          {type === 'rose'  ? <RoseBloom c={c} /> :
-           type === 'peony' ? <PeonyBloom c={c} /> :
+          {type === 'rose'   ? <RoseBloom c={c} /> :
+           type === 'peony'  ? <PeonyBloom c={c} /> :
+           type === 'orchid' ? <OrchidBloom c={c} /> :
            <LilyBloom c={c} />}
         </>
       )}

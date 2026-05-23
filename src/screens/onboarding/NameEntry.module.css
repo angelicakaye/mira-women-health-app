@@ -225,6 +225,11 @@
   justify-items: stretch;
 }
 
+/* If there's an odd last item, let it span both columns */
+.moodGrid > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .choiceButton,
 .periodToggle {
   width: 100%;

@@ -75,6 +75,29 @@
 .optionDesc {
   font-size: 13px;
   color: #C090A8;
+  margin-bottom: 4px;
+}
+
+.optionTag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #993556;
+  background: rgba(153, 53, 86, 0.08);
+  border-radius: 999px;
+  padding: 2px 9px;
+  align-self: flex-start;
+}
+
+.optionTagSoft {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  color: #B07090;
+  background: rgba(196, 123, 154, 0.08);
+  border-radius: 999px;
+  padding: 2px 9px;
+  align-self: flex-start;
 }
 
 .arrow {

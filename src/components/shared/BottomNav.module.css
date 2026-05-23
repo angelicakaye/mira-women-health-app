@@ -52,6 +52,20 @@
   color: #C47B9A;
 }
 
+/* Whisper tab pulse — fires twice after pass-forward */
+.iconPulse {
+  display: inline-flex;
+  animation: whisperTabPulse 0.42s ease-in-out 2;
+}
+
+@keyframes whisperTabPulse {
+  0%, 100% { transform: scale(1); filter: none; }
+  50% {
+    transform: scale(1.32);
+    filter: drop-shadow(0 0 5px rgba(196, 123, 154, 0.85));
+  }
+}
+
 /* Lumi icon wrapper — constrains the animated blob inside tab bounds */
 .lumiWrap {
   width: 32px;

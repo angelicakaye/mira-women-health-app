@@ -35,7 +35,7 @@
   align-items: center;
 }
 
-/* ── Flower — fixed header, never scrolls ── */
+/* ── Flower — never scrolls ── */
 .flowerWrap {
   flex-shrink: 0;
   position: relative;
@@ -81,6 +81,7 @@
   border-radius: 24px;
   padding: 22px 20px;
   box-shadow: 0 14px 42px rgba(180, 120, 160, 0.11);
+  border: 1px solid rgba(114, 36, 62, 0.07);
 }
 
 .bubble::before {
@@ -101,16 +102,16 @@
   z-index: 1;
   color: #993556;
   text-align: center;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 1.38;
+  line-height: 1.42;
 }
 
 /* ── Body copy ── */
 .copy {
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 14px;
 }
 
 .copy p {
@@ -120,42 +121,6 @@
   line-height: 1.72;
 }
 
-.sign {
-  color: #C47B9A !important;
-  font-style: italic;
-}
-
-/* ── Mood grid ── */
-.moodGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.moodTile {
-  min-height: 96px;
-  border: 1px solid rgba(153, 53, 86, 0.1);
-  border-radius: 22px;
-  background: #FAF9F7;
-  color: #993556;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  cursor: pointer;
-  font: inherit;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.moodTile span { font-size: 20px; }
-
-.moodTileActive {
-  border-color: rgba(153, 53, 86, 0.45);
-  background: rgba(244, 192, 209, 0.26);
-}
-
-/* ── Whisper quote ── */
 .whisper {
   background: rgba(250, 249, 247, 0.72);
   border: 1px solid rgba(153, 53, 86, 0.08);
@@ -168,7 +133,7 @@
   font-style: italic;
   font-size: 14px;
   text-align: center;
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
 .whisper span {
@@ -180,14 +145,7 @@
   font-weight: 700;
 }
 
-/* ── Reminder list ── */
-.reminderList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* ── Sticky action bar — pinned to bottom, outside scroll ── */
+/* ── Sticky action bar ── */
 .actions {
   flex-shrink: 0;
   width: 100%;
@@ -199,8 +157,6 @@
 }
 
 .primaryButton,
-.secondaryButton,
-.reminderButton,
 .textButton {
   width: 100%;
   border: none;
@@ -218,20 +174,6 @@
   transition: background 0.15s ease;
 }
 .primaryButton:active { background: #72243E; }
-
-.secondaryButton,
-.reminderButton {
-  color: #993556;
-  background: #FAF9F7;
-  border: 1.5px solid rgba(153, 53, 86, 0.18);
-  border-radius: 999px;
-  padding: 15px 18px;
-  font-size: 15px;
-  font-weight: 600;
-  transition: border-color 0.15s ease;
-}
-.secondaryButton:active,
-.reminderButton:active { border-color: rgba(153, 53, 86, 0.45); }
 
 .textButton {
   color: #993556;

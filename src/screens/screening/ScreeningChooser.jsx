@@ -49,7 +49,7 @@ export default function ScreeningChooser() {
           {!hasHistory ? (
             <div className={styles.emptyState}>
               <p className={styles.emptyText}>Nothing logged yet.</p>
-              <p className={styles.emptyHint}>Your BSE check-ins and mammogram bookings will appear here.</p>
+              <p className={styles.emptyHint}>Your BSE check-ins and screening appointments will appear here.</p>
             </div>
           ) : (
             <div className={styles.recordList}>
@@ -63,7 +63,9 @@ export default function ScreeningChooser() {
                   </div>
                   <div className={styles.recordBody}>
                     <span className={styles.recordTitle}>
-                      {booking.type === 'bus' ? 'Mobile screening bus' : 'Mammogram'}
+                      {booking.type === 'bus' ? 'Mobile screening bus'
+                        : booking.type === 'polyclinic' ? 'Polyclinic appointment'
+                        : 'Mammogram'}
                     </span>
                     <span className={styles.recordSub}>{formatBookingDate(booking)}</span>
                   </div>
@@ -94,7 +96,9 @@ export default function ScreeningChooser() {
                   </div>
                   <div className={styles.recordBody}>
                     <span className={styles.recordTitle}>
-                      {booking.type === 'bus' ? 'Mobile screening bus' : 'Mammogram'}
+                      {booking.type === 'bus' ? 'Mobile screening bus'
+                        : booking.type === 'polyclinic' ? 'Polyclinic appointment'
+                        : 'Mammogram'}
                     </span>
                     <span className={styles.recordSub}>{formatBookingDate(booking)}</span>
                   </div>
@@ -138,7 +142,7 @@ export default function ScreeningChooser() {
             </div>
           </button>
 
-          {/* Mammogram */}
+          {/* Breast screening */}
           <button className={styles.optionCard} onClick={() => navigate('/mammogram')}>
             <div className={styles.optionIllustration}>
               <svg width="48" height="48" viewBox="0 0 52 52" fill="none">
@@ -149,14 +153,14 @@ export default function ScreeningChooser() {
               </svg>
             </div>
             <div className={styles.optionBody}>
-              <h2 className={styles.optionTitle}>Mammogram screening</h2>
-              <p className={styles.optionMeta}>Clinic or mobile bus · ~20 minutes</p>
-              <span className={styles.optionTagSoft}>Recommended every 2 years (40+)</span>
+              <h2 className={styles.optionTitle}>Breast screening</h2>
+              <p className={styles.optionMeta}>Polyclinic or mobile bus · 20–30 min</p>
+              <span className={styles.optionTagSoft}>Under 40? Start with a polyclinic visit</span>
               <p className={styles.optionBenefit}>
-                Detects what you can't feel. The most reliable way to catch changes early.
+                A doctor can examine you and guide next steps. The mobile bus is available to anyone, anytime.
               </p>
               <p className={styles.optionWhisper}>
-                "The nurse remembered my name. That helped." — Priya, 52
+                "I just told the doctor what I noticed. She took it seriously." — Jess, 29
               </p>
             </div>
             <div className={styles.optionArrow}>
@@ -168,8 +172,8 @@ export default function ScreeningChooser() {
         </div>
 
         <p className={styles.footnote}>
-          BSE helps you notice changes. Mammograms detect what you can't feel.<br />
-          You can do one, both, or come back later.
+          BSE helps you notice changes. Screening helps you understand them.<br />
+          You can do one, both, or come back later — no rush.
         </p>
       </div>
     </Layout>

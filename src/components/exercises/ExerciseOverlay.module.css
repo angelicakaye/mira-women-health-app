@@ -1,5 +1,5 @@
 .overlay {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background: linear-gradient(170deg, #FBEAF0 0%, #F3DCEA 60%, #EDD4E6 100%);
   z-index: 200;

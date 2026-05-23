@@ -1,22 +1,39 @@
+/* ── Canvas ── */
 .shell {
   min-height: 100dvh;
-  background-color: #F1EFE8;
+  background-color: #ECEAE4;
+  background-image: radial-gradient(circle, rgba(140, 130, 122, 0.32) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: flex-start;
+  justify-content: center;
+  gap: 28px;
+  padding: 40px 32px;
 }
 
+/* ── Toggle side panel ── */
+.sidePanel {
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+/* ── Phone frame ── */
 .container {
-  width: 100%;
-  max-width: 430px;
-  min-height: 100dvh;
-  height: 100dvh;
+  flex-shrink: 0;
+  width: 390px;
+  height: calc(100dvh - 80px);
+  max-height: 844px;
   background-color: #FBEAF0;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
+  border-radius: 44px;
+  border: 2px solid rgba(90, 70, 80, 0.22);
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, 0.55),
+    0 24px 64px rgba(60, 30, 45, 0.14);
 }
 
 .content {
@@ -29,4 +46,10 @@
 .navSpacer {
   flex-shrink: 0;
   height: calc(140px + env(safe-area-inset-bottom, 0px));
+}
+
+/* ── Always keep the prototype frame + toggle side-by-side ── */
+/* Minimum width ensures layout never collapses — prototype is a desktop viewer */
+.shell {
+  min-width: 560px;
 }

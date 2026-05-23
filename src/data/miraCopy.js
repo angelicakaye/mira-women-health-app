@@ -86,6 +86,28 @@ export const MIRA_LETTER = {
   sign: '— Mira',
 }
 
+// ── Day 14 letter ──
+export const MIRA_LETTER_14 = {
+  title: 'Two weeks with Mira.',
+  paragraphs: [
+    "Look at what you have grown. Two weeks of small choices, quiet moments — showing up for yourself when no one was watching.",
+    "You are becoming someone who takes care of herself. That is not a small thing.",
+    "There is a community of women here who have been walking this path too. Today, I want to introduce you to them.",
+  ],
+  sign: '— Mira',
+}
+
+// ── Day 21 letter ──
+export const MIRA_LETTER_21 = {
+  title: 'Three weeks with Mira.',
+  paragraphs: [
+    "Three weeks. You showed up, quietly, again and again. That deserves to be named.",
+    "You have been learning your body. Taking small moments. Passing something forward to other women.",
+    "There is one more thing I want to gently bring up — when you are ready.",
+  ],
+  sign: '— Mira',
+}
+
 // ── Day 14 intro from Mira ──
 export const MIRA_COMMUNITY_INTRO = "You're not alone in this. Other women using Mira have been sharing quietly. I think you're ready to hear them."
 

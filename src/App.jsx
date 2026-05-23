@@ -23,6 +23,11 @@ import BookingConfirmed from './screens/mammogram/BookingConfirmed'
 import BusBookingDetails from './screens/mammogram/BusBookingDetails'
 import BusBookingConfirm from './screens/mammogram/BusBookingConfirm'
 
+import PolyclinicInfo from './screens/polyclinic/PolyclinicInfo'
+import PolyclinicChoose from './screens/polyclinic/PolyclinicChoose'
+import PolyclinicBook from './screens/polyclinic/PolyclinicBook'
+import PolyclinicDetails from './screens/polyclinic/PolyclinicDetails'
+import PolyclinicConfirmed from './screens/polyclinic/PolyclinicConfirmed'
 import CheckIn from './screens/checkin/CheckIn'
 import Celebrate from './screens/celebrate/Celebrate'
 import Account from './screens/account/Account'
@@ -41,6 +46,7 @@ function RootRedirect() {
 
 export default function App() {
   return (
+    <>
     <Routes>
       <Route path="/" element={<RootRedirect />} />
 
@@ -65,11 +71,18 @@ export default function App() {
       <Route path="/mammogram/confirm" element={<RequireUser><BookingConfirm /></RequireUser>} />
       <Route path="/mammogram/confirmed" element={<RequireUser><BookingConfirmed /></RequireUser>} />
 
+      <Route path="/polyclinic" element={<RequireUser><PolyclinicInfo /></RequireUser>} />
+      <Route path="/polyclinic/choose" element={<RequireUser><PolyclinicChoose /></RequireUser>} />
+      <Route path="/polyclinic/book" element={<RequireUser><PolyclinicBook /></RequireUser>} />
+      <Route path="/polyclinic/details" element={<RequireUser><PolyclinicDetails /></RequireUser>} />
+      <Route path="/polyclinic/confirmed" element={<RequireUser><PolyclinicConfirmed /></RequireUser>} />
       <Route path="/checkin" element={<RequireUser><CheckIn /></RequireUser>} />
       <Route path="/celebrate" element={<RequireUser><Celebrate /></RequireUser>} />
       <Route path="/account" element={<RequireUser><Account /></RequireUser>} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   )
 }
+

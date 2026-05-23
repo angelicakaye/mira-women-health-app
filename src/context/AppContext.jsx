@@ -13,8 +13,8 @@ const defaultState = {
   periodLogs: [],           // ISO date strings when period was logged
   cycleDetails: {},         // { [date]: { flow: string, symptoms: string[] } }
   bseLogs: [],              // ISO date strings when BSE was completed
-  flowerType: 'rose',       // 'rose' | 'peony' | 'lily'
-  flowerPicks: {},          // { [weekNum]: 'rose' | 'peony' | 'lily' }
+  flowerType: 'rose',       // 'rose' | 'peony' | 'lily' | 'orchid'
+  flowerPicks: {},          // { [weekNum]: 'rose' | 'peony' | 'lily' | 'orchid' }
   screeningCompleted: false,
   screeningType: null,
   bookingDetails: { clinicId: null, date: null, time: null, type: null },
@@ -28,7 +28,12 @@ const defaultState = {
   checkinNudgeDone: false,  // Day 21 screening check-in nudge
   moodLog: {},              // { [date]: mood string }
   letterSeenDay7: false,
+  letterSeenDay14: false,
+  letterSeenDay21: false,
+  passedWhispers: [],
+  whisperPulse: false,
   bseReminderChoice: null,
+  bseReminderDay10Seen: false,
   screeningNudgeResponse: null,  // 'ready' | 'later' | null
   weekCheckIns: {},  // { [weekNum]: { mood, focus, flower } }
 }
@@ -327,12 +332,34 @@ export function AppProvider({ children }) {
       delete newMoodLog[today]
       const newWeekCheckIns = { ...prev.weekCheckIns }
       delete newWeekCheckIns[weekNum]
+
+      // Seed lastPeriodDate so the user is in the BSE window (cycle day 7) on demo days 7 & 10
+      // Day 7 → period started 6 days ago (cycle day 7)
+      // Day 10 → period started 9 days ago (cycle day 10)
+      // Other days → leave as-is
+      let newLastPeriodDate = prev.lastPeriodDate
+      let newPeriodLogs = prev.periodLogs || []
+      if (dayNum === 7 || dayNum === 10) {
+        const pd = new Date()
+        pd.setDate(pd.getDate() - (dayNum - 1))
+        newLastPeriodDate = pd.toISOString().slice(0, 10)
+        if (!newPeriodLogs.includes(newLastPeriodDate)) {
+          newPeriodLogs = [newLastPeriodDate, ...newPeriodLogs]
+        }
+      }
+
       const next = {
         ...prev,
         installDate: newInstallDate,
         moodLog: newMoodLog,
         weekCheckIns: newWeekCheckIns,
-        letterSeenDay7: dayNum === 7 ? false : prev.letterSeenDay7,
+        lastPeriodDate: newLastPeriodDate,
+        periodLogs: newPeriodLogs,
+        letterSeenDay7: dayNum <= 7 ? false : prev.letterSeenDay7,
+        letterSeenDay14: dayNum <= 14 ? false : prev.letterSeenDay14,
+        letterSeenDay21: dayNum <= 21 ? false : prev.letterSeenDay21,
+        bseReminderChoice: dayNum >= 10 ? 'few-days' : (dayNum < 7 ? null : prev.bseReminderChoice),
+        bseReminderDay10Seen: dayNum <= 10 ? false : prev.bseReminderDay10Seen,
         screeningNudgeResponse: dayNum < 21 ? null : prev.screeningNudgeResponse,
       }
       saveState(next)
@@ -344,8 +371,39 @@ export function AppProvider({ children }) {
     update({ letterSeenDay7: true })
   }, [update])
 
+  const markLetterDay14Seen = useCallback(() => {
+    update({ letterSeenDay14: true })
+  }, [update])
+
+  const markLetterDay21Seen = useCallback(() => {
+    update({ letterSeenDay21: true })
+  }, [update])
+
   const setBseReminderChoice = useCallback((choice) => {
     update({ bseReminderChoice: choice })
+  }, [update])
+
+  const markBseReminderDay10Seen = useCallback(() => {
+    update({ bseReminderDay10Seen: true })
+  }, [update])
+
+  const addPassedWhisper = useCallback((text) => {
+    setState(prev => {
+      const next = {
+        ...prev,
+        passedWhispers: [...(prev.passedWhispers || []), { text, date: todayISO() }],
+      }
+      saveState(next)
+      return next
+    })
+  }, [])
+
+  const triggerWhisperPulse = useCallback(() => {
+    update({ whisperPulse: true })
+  }, [update])
+
+  const clearWhisperPulse = useCallback(() => {
+    update({ whisperPulse: false })
   }, [update])
 
   const respondToScreeningNudge = useCallback((response) => {
@@ -379,11 +437,20 @@ export function AppProvider({ children }) {
   // Weekly garden
   const daysSinceInstall = state.installDate ? daysBetween(state.installDate, today) : 0
   const currentWeekNum = Math.floor(daysSinceInstall / 7) + 1
-  const currentWeekFlower = state.flowerPicks[currentWeekNum] || state.flowerType || 'rose'
+  // Flower progression: week 1 = rose, week 2 = lily, week 3 = peony, week 4+ = orchid
+  const WEEK_FLOWERS = ['rose', 'lily', 'peony', 'orchid']
+  const weekFlowerDefault = WEEK_FLOWERS[Math.min(currentWeekNum - 1, WEEK_FLOWERS.length - 1)]
+  const currentWeekFlower = state.flowerPicks[currentWeekNum] || weekFlowerDefault
   const showWeeklyPicker = !state.flowerPicks[currentWeekNum]
   const needsWeekCheckIn = !state.weekCheckIns[currentWeekNum]
   const todayCardResponse = state.cardResponses[today] || null
   const todayPeriod = (state.periodLogs || []).includes(today)
+
+  // Cycle day (1 = first day of period; null if no period logged)
+  const cycleDay = state.lastPeriodDate
+    ? Math.max(1, daysBetween(state.lastPeriodDate, today) + 1)
+    : null
+  const inBseWindow = cycleDay !== null && cycleDay >= 7 && cycleDay <= 10
 
   const showWhisper = dayCount >= 7
   const showNudge = dayCount >= 21 && (
@@ -401,6 +468,8 @@ export function AppProvider({ children }) {
     todayHabits,
     todayCardResponse,
     todayPeriod,
+    cycleDay,
+    inBseWindow,
     showWhisper,
     showNudge,
     showCheckinNudge,
@@ -428,7 +497,13 @@ export function AppProvider({ children }) {
     logCycleDay,
     logMood,
     markLetterSeen,
+    markLetterDay14Seen,
+    markLetterDay21Seen,
     setBseReminderChoice,
+    markBseReminderDay10Seen,
+    addPassedWhisper,
+    triggerWhisperPulse,
+    clearWhisperPulse,
     respondToScreeningNudge,
     completeWeekCheckIn,
     setDevDay,

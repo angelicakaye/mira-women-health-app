@@ -26,7 +26,7 @@
   justify-content: center;
 }
 
-/* ── Main column ── */
+
 .stage {
   width: min(100%, 430px);
   height: 100%;
@@ -35,43 +35,67 @@
   align-items: center;
 }
 
-/* ── Flower — fixed header, never scrolls ── */
+/* ── Flower ── */
 .flowerWrap {
-  flex-shrink: 0;
-  position: relative;
   padding-top: 52px;
-  margin-bottom: 16px;
-  filter: drop-shadow(0 0 28px rgba(244, 192, 209, 0.5));
+  position: relative;
+  flex-shrink: 0;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 0 28px rgba(166, 96, 196, 0.5));
   animation: flowerGlow 2.8s ease-in-out infinite;
 }
 
 .sparkleOne,
-.sparkleTwo {
+.sparkleTwo,
+.sparkleThree {
   position: absolute;
-  width: 10px;
-  height: 10px;
   border-radius: 50%;
   background: #FAF9F7;
-  box-shadow: 0 0 18px rgba(244, 192, 209, 0.9);
   animation: sparkle 1.8s ease-in-out infinite;
 }
 
-.sparkleOne { top: 62px; right: 2px; }
-.sparkleTwo { left: 10px; bottom: 22px; animation-delay: 0.5s; }
+.sparkleOne {
+  width: 10px;
+  height: 10px;
+  top: 10px;
+  right: 2px;
+  box-shadow: 0 0 18px rgba(166, 96, 196, 0.9);
+}
 
-/* ── Scrollable body ── */
+.sparkleTwo {
+  width: 10px;
+  height: 10px;
+  left: 10px;
+  bottom: 22px;
+  box-shadow: 0 0 18px rgba(166, 96, 196, 0.9);
+  animation-delay: 0.5s;
+}
+
+.sparkleThree {
+  width: 6px;
+  height: 6px;
+  top: 30px;
+  left: -4px;
+  box-shadow: 0 0 12px rgba(107, 48, 136, 0.8);
+  animation-delay: 0.9s;
+}
+
+/* ── Page container ── */
 .content {
+  width: 100%;
   flex: 1;
   min-height: 0;
-  width: 100%;
-  overflow-y: auto;
-  padding: 0 28px 16px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-y: auto;
+  padding: 0 28px 16px;
   scrollbar-width: none;
 }
-.content::-webkit-scrollbar { display: none; }
+
+.content::-webkit-scrollbar {
+  display: none;
+}
 
 /* ── Speech bubble ── */
 .bubble {
@@ -148,7 +172,9 @@
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.moodTile span { font-size: 20px; }
+.moodTile span {
+  font-size: 20px;
+}
 
 .moodTileActive {
   border-color: rgba(153, 53, 86, 0.45);
@@ -167,8 +193,8 @@
   color: #993556;
   font-style: italic;
   font-size: 14px;
-  text-align: center;
   line-height: 1.65;
+  text-align: center;
 }
 
 .whisper span {
@@ -180,14 +206,8 @@
   font-weight: 700;
 }
 
-/* ── Reminder list ── */
-.reminderList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+/* ── Actions ── */
 
-/* ── Sticky action bar — pinned to bottom, outside scroll ── */
 .actions {
   flex-shrink: 0;
   width: 100%;
@@ -200,7 +220,6 @@
 
 .primaryButton,
 .secondaryButton,
-.reminderButton,
 .textButton {
   width: 100%;
   border: none;
@@ -217,21 +236,20 @@
   font-weight: 600;
   transition: background 0.15s ease;
 }
-.primaryButton:active { background: #72243E; }
 
-.secondaryButton,
-.reminderButton {
+.primaryButton:active {
+  background: #72243E;
+}
+
+.secondaryButton {
   color: #993556;
   background: #FAF9F7;
-  border: 1.5px solid rgba(153, 53, 86, 0.18);
+  border: 1.5px solid rgba(153, 53, 86, 0.2);
   border-radius: 999px;
   padding: 15px 18px;
   font-size: 15px;
   font-weight: 600;
-  transition: border-color 0.15s ease;
 }
-.secondaryButton:active,
-.reminderButton:active { border-color: rgba(153, 53, 86, 0.45); }
 
 .textButton {
   color: #993556;
@@ -250,10 +268,10 @@
 
 @keyframes flowerGlow {
   0%, 100% { transform: translateY(0) scale(1); }
-  50%       { transform: translateY(-3px) scale(1.03); }
+  50%       { transform: translateY(-4px) scale(1.04); }
 }
 
 @keyframes sparkle {
   0%, 100% { opacity: 0.2; transform: scale(0.8); }
-  50%       { opacity: 1;   transform: scale(1.25); }
+  50%       { opacity: 1;   transform: scale(1.3); }
 }

@@ -6,26 +6,26 @@ import { MIRA_LETTER } from '../../data/miraCopy'
 import styles from './MiraWeeklyCheckIn.module.css'
 
 const MOODS = [
-  { id: 'heavy', label: 'Heavy', icon: 'Rain' },
-  { id: 'tired', label: 'Tired', icon: 'Rest' },
-  { id: 'okay', label: 'Okay', icon: 'Leaf' },
-  { id: 'good', label: 'Good', icon: 'Bloom' },
+  { id: 'heavy', label: 'Heavy', icon: '🌧' },
+  { id: 'tired', label: 'Tired', icon: '😴' },
+  { id: 'okay',  label: 'Okay',  icon: '🌿' },
+  { id: 'good',  label: 'Good',  icon: '🌸' },
 ]
 
 const REMINDERS = [
-  { id: 'few-days', label: 'In a few days' },
-  { id: 'one-week', label: 'In one week' },
-  { id: 'next-month', label: 'Next month' },
+  { id: 'few-days',   label: 'Remind me in a few days' },
+  { id: 'one-week',   label: 'Remind me in one week' },
+  { id: 'next-month', label: 'Remind me next month' },
 ]
 
 export default function MiraWeeklyCheckIn({ onClose }) {
   const {
-    currentWeekFlower,
-    flowerType,
     today,
     logMood,
     markLetterSeen,
     setBseReminderChoice,
+    cycleDay,
+    inBseWindow,
   } = useApp()
   const [page, setPage] = useState('letter')
   const [mood, setMood] = useState('')
@@ -53,100 +53,127 @@ export default function MiraWeeklyCheckIn({ onClose }) {
     closeAndSave()
   }
 
+  const bseBubble = inBseWindow
+    ? `You're on day ${cycleDay} of your cycle — one of the best windows to check in with your body.`
+    : 'This is a good time to think about checking in with your body.'
+
+  const bseBody = inBseWindow
+    ? 'Around this time, breasts are often at their softest and least tender. A gentle five-minute check is all it takes.'
+    : 'Around days 7 to 10 of your cycle, breasts are often softest — a gentler window to notice if anything feels different.'
+
+  const bseWhisperText = inBseWindow
+    ? '"Day 7 became my reminder. I do it in the shower — five minutes, quiet, just me. I feel so much better for knowing."'
+    : '"I do mine after my morning shower. Quiet, private, and done in five minutes. It felt like I was really looking after myself."'
+
+  const bseWhisperAttrib = inBseWindow ? 'Lin, 41' : 'Mei, 38'
+
   return (
     <div className={styles.overlay}>
       <button className={styles.closeButton} onClick={closeAndSave} aria-label="Close">
-        x
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+        </svg>
       </button>
 
       <div className={styles.stage}>
+
+        {/* ── Flower header — never scrolls ── */}
         <div className={styles.flowerWrap}>
-          <Flower type={currentWeekFlower || flowerType || 'rose'} waterCount={5} size={118} />
+          <Flower type="lily" waterCount={5} size={118} />
           <span className={styles.sparkleOne} />
           <span className={styles.sparkleTwo} />
         </div>
 
-        {page === 'letter' && (
-          <section className={styles.page}>
-            <div className={styles.bubble}>
-              <h1>{MIRA_LETTER.title}</h1>
-            </div>
-            <div className={styles.copy}>
-              {MIRA_LETTER.paragraphs.map((para, index) => (
-                <p key={index}>{para}</p>
-              ))}
-              <p className={styles.sign}>{MIRA_LETTER.sign}</p>
-            </div>
-            <div className={styles.actions}>
-              <button className={styles.primaryButton} onClick={() => setPage('mood')}>
-                Continue
-              </button>
-            </div>
-          </section>
-        )}
+        {/* ── Scrollable content ── */}
+        <div className={styles.content}>
 
-        {page === 'mood' && (
-          <section className={styles.page}>
-            <div className={styles.bubble}>
-              <h1>How are you feeling today?</h1>
-            </div>
-            <div className={styles.moodGrid}>
-              {MOODS.map(item => (
-                <button
-                  key={item.id}
-                  className={`${styles.moodTile} ${mood === item.id ? styles.moodTileActive : ''}`}
-                  onClick={() => chooseMood(item.id)}
-                >
-                  <span aria-hidden="true">{item.icon}</span>
-                  <strong>{item.label}</strong>
-                </button>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {page === 'bse' && (
-          <section className={styles.page}>
-            <div className={styles.bubble}>
-              <h1>This may be a good window to check in with your body.</h1>
-            </div>
-            <div className={styles.copy}>
-              <p>
-                Around days 7 to 10 of your cycle, breasts are often less tender. That can make a breast self-assessment feel easier.
-              </p>
-              <div className={styles.whisper}>
-                <p>"I do mine after my shower. Quiet, private, and over in a few minutes."</p>
-                <span>Woman, 42</span>
+          {page === 'letter' && (
+            <>
+              <div className={styles.bubble}><h1>{MIRA_LETTER.title}</h1></div>
+              <div className={styles.copy}>
+                {MIRA_LETTER.paragraphs.map((para, i) => <p key={i}>{para}</p>)}
+                <p className={styles.sign}>{MIRA_LETTER.sign}</p>
               </div>
-            </div>
-            <div className={styles.actions}>
+            </>
+          )}
+
+          {page === 'mood' && (
+            <>
+              <div className={styles.bubble}><h1>How are you feeling today?</h1></div>
+              <div className={styles.moodGrid}>
+                {MOODS.map(item => (
+                  <button
+                    key={item.id}
+                    className={`${styles.moodTile} ${mood === item.id ? styles.moodTileActive : ''}`}
+                    onClick={() => chooseMood(item.id)}
+                  >
+                    <span aria-hidden="true">{item.icon}</span>
+                    <strong>{item.label}</strong>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+          {page === 'bse' && (
+            <>
+              <div className={styles.bubble}><h1>{bseBubble}</h1></div>
+              <div className={styles.copy}>
+                <p>{bseBody}</p>
+                <div className={styles.whisper}>
+                  <p>{bseWhisperText}</p>
+                  <span>{bseWhisperAttrib}</span>
+                </div>
+              </div>
+            </>
+          )}
+
+          {page === 'reminder' && (
+            <>
+              <div className={styles.bubble}><h1>That's completely okay. Should I remind you?</h1></div>
+              <div className={styles.copy}>
+                <p>There's no rush. You can come back to this whenever it feels right.</p>
+              </div>
+              <div className={styles.reminderList}>
+                {REMINDERS.map(item => (
+                  <button
+                    key={item.id}
+                    className={styles.reminderButton}
+                    onClick={() => chooseReminder(item.id)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+        </div>
+
+        {/* ── Sticky action bar — outside scroll ── */}
+        <div className={styles.actions}>
+          {page === 'letter' && (
+            <button className={styles.primaryButton} onClick={() => setPage('mood')}>
+              Continue
+            </button>
+          )}
+          {page === 'bse' && (
+            <>
               <button className={styles.primaryButton} onClick={startBse}>
                 Show me how
               </button>
               <button className={styles.secondaryButton} onClick={() => setPage('reminder')}>
                 I'm not ready yet
               </button>
-            </div>
-          </section>
-        )}
-
-        {page === 'reminder' && (
-          <section className={styles.page}>
-            <div className={styles.bubble}>
-              <h1>That's okay. When should I remind you?</h1>
-            </div>
-            <div className={styles.reminderList}>
-              {REMINDERS.map(item => (
-                <button key={item.id} className={styles.reminderButton} onClick={() => chooseReminder(item.id)}>
-                  {item.label}
-                </button>
-              ))}
-            </div>
+            </>
+          )}
+          {page === 'reminder' && (
             <button className={styles.textButton} onClick={closeAndSave}>
               No reminder for now
             </button>
-          </section>
-        )}
+          )}
+        </div>
+
       </div>
     </div>
   )

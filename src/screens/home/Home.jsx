@@ -2,15 +2,19 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
-import MiraCard from '../../components/mira/MiraCard'
 import MiraWeeklyCheckIn from '../../components/mira/MiraWeeklyCheckIn'
+import MiraDay14CheckIn from '../../components/mira/MiraDay14CheckIn'
+import MiraDay21CheckIn from '../../components/mira/MiraDay21CheckIn'
+import MiraBseReminder from '../../components/mira/MiraBseReminder'
+import PassForwardModal from '../../components/mira/PassForwardModal'
 import HabitRings from '../../components/habits/HabitRings'
 import RingHistory from '../../components/habits/RingHistory'
 import CycleTracker from '../../components/habits/CycleTracker'
 import ExerciseOverlay from '../../components/exercises/ExerciseOverlay'
+import { SEEDED_WINDING_DOWN } from '../../data/miraCopy'
+import Flower from '../../components/flower/Flower'
 import styles from './Home.module.css'
 
-const DEMO_DAYS = [1, 7, 10, 14, 21]
 
 const AFFIRMATIONS = {
   support: [
@@ -240,22 +244,50 @@ function getTodayBadge() {
   })
 }
 
-function DemoDayToggle({ dayCount, onSetDay }) {
+// ── Week strip helpers ──
+function toISODate(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+function getWeekDays(todayStr) {
+  const [y, m, d] = todayStr.split('-').map(Number)
+  const base = new Date(y, m - 1, d)
+  const dow = base.getDay()
+  const diffToMon = dow === 0 ? -6 : 1 - dow
+  const monday = new Date(y, m - 1, d + diffToMon)
+  return Array.from({ length: 7 }, (_, i) => {
+    const day = new Date(monday)
+    day.setDate(monday.getDate() + i)
+    return day
+  })
+}
+
+const DAY_LETTERS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+
+function WeekStrip({ today, periodLogs, onToggle }) {
+  const days = getWeekDays(today)
   return (
-    <div className={styles.demoToggle} aria-label="Demo day selector">
-      <span className={styles.demoLabel}>Demo day</span>
-      <div className={styles.demoOptions}>
-        {DEMO_DAYS.map(day => (
+    <div className={styles.weekStrip}>
+      {days.map((day, i) => {
+        const iso = toISODate(day)
+        const isToday = iso === today
+        const isPeriod = (periodLogs || []).includes(iso)
+        return (
           <button
-            key={day}
-            className={`${styles.demoButton} ${dayCount === day ? styles.demoButtonActive : ''}`}
-            onClick={() => onSetDay(day)}
-            type="button"
+            key={iso}
+            className={[
+              styles.dayTile,
+              isToday ? styles.dayTileToday : '',
+              isPeriod && !isToday ? styles.dayTilePeriod : '',
+            ].join(' ')}
+            onClick={() => onToggle(iso)}
           >
-            {day}
+            <span className={styles.dayLetter}>{DAY_LETTERS[i]}</span>
+            <span className={styles.dayNum}>{day.getDate()}</span>
+            <span className={`${styles.periodDot} ${isPeriod ? styles.periodDotOn : ''}`} />
           </button>
-        ))}
-      </div>
+        )
+      })}
     </div>
   )
 }
@@ -267,9 +299,53 @@ const FOCUS_OPTIONS = [
   { id: 'relax',     label: 'To relax',         desc: 'Wind down and breathe',           icon: '🌙' },
 ]
 
-function FocusSection({ userGoal, onSetGoal, dayCount, todaySelfCare, onBeginActivity, navigate }) {
+// ── Inline whisper card (shown below activity card on day 8+) ──
+function InlineWhisperCard({ whispers, index, liked, onNext, onLike }) {
+  const w = whispers[index % whispers.length]
+  return (
+    <div className={styles.inlineWhisperSection}>
+      <p className={styles.inlineWhisperDivider}>Someone left this for you</p>
+      <div className={styles.inlineWhisperCard}>
+        <div className={styles.inlineWhisperHeader}>
+          <span className={styles.inlineWhisperAvatar}>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M8 13.5S2 9.5 2 5.5A3.5 3.5 0 0 1 8 3.07 3.5 3.5 0 0 1 14 5.5c0 4-6 8-6 8Z"
+                fill="#C47B9A" />
+            </svg>
+          </span>
+          <span className={styles.inlineWhisperMeta}>{w.username} · {w.age}</span>
+        </div>
+        <p className={styles.inlineWhisperQuote}>{w.text}</p>
+        <div className={styles.inlineWhisperActions}>
+          <button
+            className={`${styles.inlineWhisperBtn} ${liked ? styles.inlineWhisperBtnLiked : ''}`}
+            onClick={onLike}
+            aria-label="Like"
+          >
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+              <path d="M8 13.5S2 9.5 2 5.5A3.5 3.5 0 0 1 8 3.07 3.5 3.5 0 0 1 14 5.5c0 4-6 8-6 8Z"
+                fill={liked ? '#C47B9A' : 'none'}
+                stroke={liked ? '#C47B9A' : '#C090A8'}
+                strokeWidth="1.5"
+              />
+            </svg>
+          </button>
+          <button className={styles.inlineWhisperBtn} onClick={onNext} aria-label="Next whisper">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="#C090A8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function FocusSection({ userGoal, onSetGoal, dayCount, todaySelfCare, onBeginActivity, onIDidIt, navigate }) {
   // Show question if no goal set (null) or user explicitly clicked Change
   const [changing, setChanging] = useState(!userGoal || userGoal === 'notsure')
+  const [whisperIdx, setWhisperIdx] = useState(0)
+  const [whisperLiked, setWhisperLiked] = useState({})
 
   // When goal changes externally (e.g. first pick), stop showing question
   useEffect(() => {
@@ -344,7 +420,10 @@ function FocusSection({ userGoal, onSetGoal, dayCount, todaySelfCare, onBeginAct
           </div>
           <p className={styles.activityName}>{activity.name}</p>
           <p className={styles.activityDesc}>{activity.desc}</p>
-          <button className={styles.activityBtn} onClick={handleBegin}>Begin</button>
+          <div className={styles.activityBtns}>
+            <button className={styles.activityBtn} onClick={handleBegin}>Begin</button>
+            <button className={styles.activityIDidIt} onClick={onIDidIt}>I did it</button>
+          </div>
         </div>
       ) : (
         <div className={styles.activityDone}>
@@ -354,6 +433,16 @@ function FocusSection({ userGoal, onSetGoal, dayCount, todaySelfCare, onBeginAct
           <span>You took time for yourself today.</span>
         </div>
       )}
+
+      {dayCount >= 8 && !changing && (
+        <InlineWhisperCard
+          whispers={SEEDED_WINDING_DOWN}
+          index={whisperIdx}
+          liked={!!whisperLiked[whisperIdx]}
+          onNext={() => setWhisperIdx(i => (i + 1) % SEEDED_WINDING_DOWN.length)}
+          onLike={() => setWhisperLiked(prev => ({ ...prev, [whisperIdx]: !prev[whisperIdx] }))}
+        />
+      )}
     </div>
   )
 }
@@ -362,20 +451,50 @@ export default function Home() {
   const {
     userName, dayCount, userGoal,
     setUserGoal, today, todayHabits, logHabit,
-    letterSeenDay7, setDevDay,
+    letterSeenDay7, letterSeenDay14, letterSeenDay21, bseReminderChoice, bseReminderDay10Seen,
+    periodLogs, logPeriod, cycleDay, todayPeriod,
+    currentWeekFlower,
   } = useApp()
   const [miraGlowing, setMiraGlowing] = useState(false)
   const [activeExercise, setActiveExercise] = useState(null)
   const [showRingHistory, setShowRingHistory] = useState(false)
   const [showLetter, setShowLetter] = useState(false)
+  const [showDay14Letter, setShowDay14Letter] = useState(false)
+  const [showDay21Letter, setShowDay21Letter] = useState(false)
+  const [showBseReminder, setShowBseReminder] = useState(false)
+  const [showPassForward, setShowPassForward] = useState(false)
   const navigate = useNavigate()
 
   const todaySelfCare = !!todayHabits.selfCare
+
+  // Auto-clear flower glow after 2.5 s
+  useEffect(() => {
+    if (!miraGlowing) return
+    const t = setTimeout(() => setMiraGlowing(false), 2500)
+    return () => clearTimeout(t)
+  }, [miraGlowing])
 
   // Show Day 7 weekly check-in once on first eligibility.
   useEffect(() => {
     if (dayCount === 7 && !letterSeenDay7) setShowLetter(true)
   }, [dayCount, letterSeenDay7])
+
+  // Show Day 14 check-in once on first eligibility.
+  useEffect(() => {
+    if (dayCount === 14 && !letterSeenDay14) setShowDay14Letter(true)
+  }, [dayCount, letterSeenDay14])
+
+  // Show Day 21 check-in once on first eligibility.
+  useEffect(() => {
+    if (dayCount === 21 && !letterSeenDay21) setShowDay21Letter(true)
+  }, [dayCount, letterSeenDay21])
+
+  // Show Day 10 BSE reminder if user asked to be reminded "in a few days" on Day 7.
+  useEffect(() => {
+    if (dayCount >= 10 && bseReminderChoice === 'few-days' && !bseReminderDay10Seen) {
+      setShowBseReminder(true)
+    }
+  }, [dayCount, bseReminderChoice, bseReminderDay10Seen])
 
   function handleAllHabits() {
     setMiraGlowing(true)
@@ -392,6 +511,11 @@ export default function Home() {
     setMiraGlowing(true)
   }
 
+  function handleIDidIt() {
+    logHabit(today, 'selfCare')
+    setShowPassForward(true)
+  }
+
   function handleActivityDismiss() {
     setActiveExercise(null)
   }
@@ -399,35 +523,48 @@ export default function Home() {
   return (
     <Layout>
       <div className={styles.page}>
-        {/* Greeting */}
+
+        {/* ── Greeting ── */}
         <div className={styles.greetingRow}>
           <p className={styles.greeting}>{getGreeting(userName)}</p>
           <span className={styles.dayBadge}>{getTodayBadge()}</span>
         </div>
 
-        <DemoDayToggle dayCount={dayCount} onSetDay={setDevDay} />
-
-        {/* Mira check-in */}
-        <MiraCard
-          isGlowing={miraGlowing}
-          onGlowEnd={() => setMiraGlowing(false)}
-          onScreeningReady={() => navigate('/screening')}
+        {/* ── Week strip ── */}
+        <WeekStrip
+          today={today}
+          periodLogs={periodLogs}
+          onToggle={logPeriod}
         />
 
-        {/* ── Your Focus + activity ── */}
+        {/* ── Flower hero ── */}
+        <div className={styles.flowerHero}>
+          <div className={`${styles.flowerHeroWrap} ${miraGlowing ? styles.flowerHeroGlowing : ''}`}>
+            <Flower type={currentWeekFlower || 'rose'} waterCount={5} size={130} />
+            <span className={`${styles.sparkle} ${styles.sparkleA}`} />
+            <span className={`${styles.sparkle} ${styles.sparkleB}`} />
+          </div>
+          <p className={styles.flowerLabel}>Your {currentWeekFlower || 'rose'} this week</p>
+          {todayPeriod && cycleDay && (
+            <span className={styles.periodBadge}>Day {cycleDay} of your period</span>
+          )}
+        </div>
+
+        {/* ── Activity / whisper card ── */}
         <FocusSection
           userGoal={userGoal}
           onSetGoal={setUserGoal}
           dayCount={dayCount}
           todaySelfCare={todaySelfCare}
           onBeginActivity={handleBeginActivity}
+          onIDidIt={handleIDidIt}
           navigate={navigate}
         />
 
-        {/* ── Habits ── */}
+        {/* ── You time ── */}
         <div className={styles.section}>
           <div className={styles.sectionHeader}>
-            <p className={styles.sectionLabel}>Today's habits</p>
+            <p className={styles.sectionLabel}>You time</p>
             <button className={styles.sectionAction} onClick={() => setShowRingHistory(true)}>
               See all
             </button>
@@ -435,9 +572,9 @@ export default function Home() {
           <HabitRings onComplete={handleAllHabits} />
         </div>
 
-        {/* ── Cycle ── */}
+        {/* ── Cycle symptoms ── */}
         <div className={styles.section}>
-          <p className={styles.sectionLabel}>Cycle</p>
+          <p className={styles.sectionLabel}>How you're feeling</p>
           <CycleTracker />
         </div>
 
@@ -454,6 +591,10 @@ export default function Home() {
       {showRingHistory && <RingHistory onClose={() => setShowRingHistory(false)} />}
 
       {showLetter && <MiraWeeklyCheckIn onClose={() => setShowLetter(false)} />}
+      {showDay14Letter && <MiraDay14CheckIn onClose={() => setShowDay14Letter(false)} />}
+      {showDay21Letter && <MiraDay21CheckIn onClose={() => setShowDay21Letter(false)} />}
+      {showBseReminder && <MiraBseReminder onClose={() => setShowBseReminder(false)} />}
+      {showPassForward && <PassForwardModal onClose={() => setShowPassForward(false)} />}
 
     </Layout>
   )

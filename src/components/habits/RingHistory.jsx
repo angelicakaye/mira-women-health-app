@@ -4,7 +4,7 @@ import styles from './RingHistory.module.css'
 
 const HABITS = ['period', 'water', 'sleep', 'movement']
 const LABELS = {
-  period: 'Cycle',
+  period: 'Period',
   water: 'Water',
   sleep: 'Sleep',
   movement: 'Move',
@@ -39,13 +39,13 @@ function buildMonthDays(monthDate) {
 function closedCount(habitLogs, periodLogs, iso) {
   const habits = habitLogs[iso] || {}
   return HABITS.reduce((count, habit) => {
-    if (habit === 'period') return count + (periodLogs.includes(iso) ? 1 : 0)
+    if (habit === 'period') return count + (periodLogs[iso] ? 1 : 0)
     return count + (habits[habit] ? 1 : 0)
   }, 0)
 }
 
 export default function RingHistory({ onClose }) {
-  const { habitLogs, periodLogs = [], today } = useApp()
+  const { habitLogs, periodLogs = {}, today } = useApp()
   const [cursor, setCursor] = useState(() => new Date())
 
   const days = useMemo(() => buildMonthDays(cursor), [cursor])

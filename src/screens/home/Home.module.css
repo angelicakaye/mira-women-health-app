@@ -29,50 +29,6 @@
   padding: 4px 12px;
 }
 
-.demoToggle {
-  margin: 8px 20px 4px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  background: rgba(250, 249, 247, 0.7);
-  border: 1px solid rgba(114, 36, 62, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.demoLabel {
-  color: #993556;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.demoOptions {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 6px;
-  flex: 1;
-}
-
-.demoButton {
-  min-width: 0;
-  border: 1px solid rgba(153, 53, 86, 0.16);
-  border-radius: 10px;
-  background: #FAF9F7;
-  color: #993556;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 7px 0;
-  cursor: pointer;
-}
-
-.demoButtonActive {
-  background: #993556;
-  color: #FAF9F7;
-  border-color: #993556;
-}
 
 /* ── Inline check-in banner (shown after overlay dismissed) ── */
 .checkInBanner {
@@ -483,9 +439,15 @@
   line-height: 1.45;
 }
 
-.activityBtn {
-  align-self: flex-start;
+.activityBtns {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.activityBtn {
   font-size: 13px;
   font-weight: 700;
   color: #FAF9F7;
@@ -497,8 +459,23 @@
   font-family: inherit;
   transition: background 0.15s ease;
 }
-
 .activityBtn:active { background: #72243E; }
+
+.activityIDidIt {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #993556;
+  background: none;
+  border: none;
+  padding: 8px 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(153, 53, 86, 0.35);
+  white-space: nowrap;
+}
+.activityIDidIt:active { opacity: 0.6; }
 
 .activityDone {
   display: flex;
@@ -511,6 +488,88 @@
   font-size: 13px;
   color: #993556;
   font-weight: 500;
+}
+
+/* ── Inline whisper card ── */
+.inlineWhisperSection {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  animation: whisperFadeIn 0.6s ease 0.2s both;
+}
+
+.inlineWhisperDivider {
+  font-size: 10px;
+  font-style: italic;
+  color: #B8A8A4;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.inlineWhisperCard {
+  background: #FDDDE8;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inlineWhisperHeader {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.inlineWhisperAvatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(196, 123, 154, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.inlineWhisperMeta {
+  font-size: 11px;
+  font-style: italic;
+  color: #B07090;
+}
+
+.inlineWhisperQuote {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #5A2040;
+  line-height: 1.65;
+}
+
+.inlineWhisperActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.inlineWhisperBtn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.inlineWhisperBtn:active { transform: scale(0.88); }
+.inlineWhisperBtnLiked { opacity: 1; }
+
+@keyframes whisperFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Day 21 screening check-in nudge */
@@ -694,4 +753,162 @@
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────────
+   Week strip
+───────────────────────────────────────────── */
+.weekStrip {
+  display: flex;
+  align-items: stretch;
+  padding: 4px 12px 0;
+}
+
+.dayTile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 7px 2px 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 14px;
+  font-family: inherit;
+  transition: background 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dayTile:active {
+  background: rgba(244, 192, 209, 0.18);
+}
+
+.dayTilePeriod {
+  background: rgba(232, 112, 150, 0.08);
+}
+
+.dayLetter {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #C090A8;
+}
+
+.dayNum {
+  font-size: 15px;
+  font-weight: 600;
+  color: #72243E;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* Today: filled circle */
+.dayTileToday .dayLetter {
+  color: #993556;
+}
+
+.dayTileToday .dayNum {
+  background: #993556;
+  color: #FAF9F7;
+}
+
+/* Period dot */
+.periodDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.15s ease;
+}
+
+.periodDotOn {
+  background: #E87096;
+}
+
+/* Lighter dot when today is also a period day */
+.dayTileToday .periodDotOn {
+  background: rgba(244, 192, 209, 0.7);
+}
+
+/* ─────────────────────────────────────────────
+   Flower hero
+───────────────────────────────────────────── */
+.flowerHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 20px 8px;
+  gap: 0;
+}
+
+.flowerHeroWrap {
+  position: relative;
+  filter: drop-shadow(0 0 20px rgba(244, 192, 209, 0.4));
+  animation: flowerFloat 3.2s ease-in-out infinite;
+  transition: filter 0.4s ease;
+}
+
+.flowerHeroGlowing {
+  filter: drop-shadow(0 0 40px rgba(244, 192, 209, 0.9)) !important;
+  animation: flowerFloat 1.6s ease-in-out infinite;
+}
+
+/* Sparkle dots */
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: #FAF9F7;
+  animation: sparkleHome 1.9s ease-in-out infinite;
+}
+
+.sparkleA {
+  width: 8px;
+  height: 8px;
+  top: 12px;
+  right: -2px;
+  box-shadow: 0 0 12px rgba(244, 192, 209, 0.85);
+}
+
+.sparkleB {
+  width: 6px;
+  height: 6px;
+  left: 4px;
+  bottom: 16px;
+  box-shadow: 0 0 10px rgba(244, 192, 209, 0.8);
+  animation-delay: 0.55s;
+}
+
+.flowerLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: #C090A8;
+  letter-spacing: 0.03em;
+  margin-top: 10px;
+}
+
+.periodBadge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #993556;
+  background: rgba(244, 192, 209, 0.35);
+  border-radius: 999px;
+  padding: 3px 13px;
+  margin-top: 7px;
+}
+
+@keyframes flowerFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-5px) scale(1.02); }
+}
+
+@keyframes sparkleHome {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1.3); }
 }

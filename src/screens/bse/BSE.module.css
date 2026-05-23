@@ -188,7 +188,7 @@
 
 /* Modal overlay */
 .modalOverlay {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background: rgba(114, 36, 62, 0.15);
   display: flex;
