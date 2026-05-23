@@ -1,0 +1,243 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  background: #FBEAF0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.closeButton {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(250, 249, 247, 0.76);
+  color: #B07090;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.stage {
+  width: min(100%, 430px);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 58px 28px 0;
+  overflow: hidden;
+}
+
+.flowerWrap {
+  position: relative;
+  flex-shrink: 0;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 0 28px rgba(244, 192, 209, 0.5));
+  animation: flowerGlow 2.8s ease-in-out infinite;
+}
+
+.sparkleOne,
+.sparkleTwo {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #FAF9F7;
+  box-shadow: 0 0 18px rgba(244, 192, 209, 0.9);
+  animation: sparkle 1.8s ease-in-out infinite;
+}
+
+.sparkleOne {
+  top: 10px;
+  right: 2px;
+}
+
+.sparkleTwo {
+  left: 10px;
+  bottom: 22px;
+  animation-delay: 0.5s;
+}
+
+.page {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  scrollbar-width: none;
+}
+
+.page::-webkit-scrollbar {
+  display: none;
+}
+
+.bubble {
+  position: relative;
+  width: 100%;
+  background: #FAF9F7;
+  border-radius: 24px;
+  padding: 22px 20px;
+  box-shadow: 0 14px 42px rgba(180, 120, 160, 0.11);
+}
+
+.bubble::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  background: #FAF9F7;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.bubble h1 {
+  position: relative;
+  z-index: 1;
+  color: #993556;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.38;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.copy p {
+  color: #72243E;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.sign {
+  color: #C47B9A !important;
+  font-style: italic;
+}
+
+.actions {
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  background: #FBEAF0;
+}
+
+.primaryButton,
+.secondaryButton,
+.reminderButton,
+.textButton {
+  width: 100%;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.primaryButton {
+  color: #FAF9F7;
+  background: #993556;
+  border-radius: 999px;
+  padding: 16px 18px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.secondaryButton,
+.reminderButton {
+  color: #993556;
+  background: #FAF9F7;
+  border: 1px solid rgba(153, 53, 86, 0.12);
+  border-radius: 18px;
+  padding: 15px 18px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.moodGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.moodTile {
+  min-height: 96px;
+  border: 1px solid rgba(153, 53, 86, 0.1);
+  border-radius: 22px;
+  background: #FAF9F7;
+  color: #993556;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.moodTile span {
+  font-size: 20px;
+}
+
+.moodTileActive {
+  border-color: rgba(153, 53, 86, 0.45);
+  background: rgba(244, 192, 209, 0.26);
+}
+
+.whisper {
+  background: rgba(250, 249, 247, 0.72);
+  border: 1px solid rgba(153, 53, 86, 0.08);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.whisper p {
+  color: #993556;
+  font-style: italic;
+}
+
+.whisper span {
+  display: block;
+  margin-top: 8px;
+  text-align: center;
+  color: #C090A8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.reminderList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.textButton {
+  margin-top: auto;
+  color: #993556;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 12px;
+}
+
+@keyframes flowerGlow {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.03); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.25); }
+}

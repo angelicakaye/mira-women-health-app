@@ -29,6 +29,51 @@
   padding: 4px 12px;
 }
 
+.demoToggle {
+  margin: 8px 20px 4px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(250, 249, 247, 0.7);
+  border: 1px solid rgba(114, 36, 62, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.demoLabel {
+  color: #993556;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.demoOptions {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  flex: 1;
+}
+
+.demoButton {
+  min-width: 0;
+  border: 1px solid rgba(153, 53, 86, 0.16);
+  border-radius: 10px;
+  background: #FAF9F7;
+  color: #993556;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 0;
+  cursor: pointer;
+}
+
+.demoButtonActive {
+  background: #993556;
+  color: #FAF9F7;
+  border-color: #993556;
+}
+
 /* ── Inline check-in banner (shown after overlay dismissed) ── */
 .checkInBanner {
   display: flex;

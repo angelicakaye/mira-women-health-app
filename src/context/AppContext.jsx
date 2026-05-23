@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 
 const STORAGE_KEY = 'mira_state'
 const STORAGE_PREFIX = 'mira_'
+const RESET_ON_REFRESH_IN_DEV = true
 
 const defaultState = {
   userName: null,
@@ -18,6 +19,8 @@ const defaultState = {
   screeningType: null,
   bookingDetails: { clinicId: null, date: null, time: null, type: null },
   userDetails: { fullName: '', phone: '', email: '', nric: '', birthYear: '' },
+  onboardingAgreements: { privacy: false, data: false, terms: false },
+  lastPeriodDate: null,
   bookings: [],
   whispersContributed: [],
   whisperReactions: {},     // { [whisperId]: ['heart', 'spark', ...] }
@@ -25,12 +28,20 @@ const defaultState = {
   checkinNudgeDone: false,  // Day 21 screening check-in nudge
   moodLog: {},              // { [date]: mood string }
   letterSeenDay7: false,
+  bseReminderChoice: null,
   screeningNudgeResponse: null,  // 'ready' | 'later' | null
   weekCheckIns: {},  // { [weekNum]: { mood, focus, flower } }
 }
 
 function loadState() {
   try {
+    if (import.meta.env.DEV && RESET_ON_REFRESH_IN_DEV) {
+      Object.keys(localStorage)
+        .filter(key => key === STORAGE_KEY || key.startsWith(STORAGE_PREFIX))
+        .forEach(key => localStorage.removeItem(key))
+      return defaultState
+    }
+
     const raw = localStorage.getItem(STORAGE_KEY)
     const state = raw ? { ...defaultState, ...JSON.parse(raw) } : { ...defaultState }
 
@@ -90,6 +101,42 @@ export function AppProvider({ children }) {
   const setUserName = useCallback((name) => {
     setState(prev => {
       const next = { ...prev, userName: name, installDate: prev.installDate || todayISO() }
+      saveState(next)
+      return next
+    })
+  }, [])
+
+  const completeOnboarding = useCallback(({ name, birthYear, mood, lastPeriodDate, currentlyOnPeriod, agreements }) => {
+    setState(prev => {
+      const today = todayISO()
+      const trimmedName = name.trim()
+      const nextPeriodLogs = currentlyOnPeriod && !(prev.periodLogs || []).includes(today)
+        ? [...(prev.periodLogs || []), today]
+        : (prev.periodLogs || [])
+
+      const next = {
+        ...prev,
+        userName: trimmedName,
+        installDate: prev.installDate || today,
+        userDetails: {
+          ...prev.userDetails,
+          fullName: prev.userDetails.fullName || trimmedName,
+          birthYear,
+        },
+        onboardingAgreements: agreements,
+        lastPeriodDate: currentlyOnPeriod ? today : lastPeriodDate,
+        periodLogs: nextPeriodLogs,
+        cycleDetails: currentlyOnPeriod
+          ? {
+              ...prev.cycleDetails,
+              [today]: { flow: 'unspecified', symptoms: [] },
+            }
+          : prev.cycleDetails,
+        moodLog: {
+          ...prev.moodLog,
+          [today]: mood,
+        },
+      }
       saveState(next)
       return next
     })
@@ -285,7 +332,7 @@ export function AppProvider({ children }) {
         installDate: newInstallDate,
         moodLog: newMoodLog,
         weekCheckIns: newWeekCheckIns,
-        letterSeenDay7: dayNum < 7 ? false : prev.letterSeenDay7,
+        letterSeenDay7: dayNum === 7 ? false : prev.letterSeenDay7,
         screeningNudgeResponse: dayNum < 21 ? null : prev.screeningNudgeResponse,
       }
       saveState(next)
@@ -295,6 +342,10 @@ export function AppProvider({ children }) {
 
   const markLetterSeen = useCallback(() => {
     update({ letterSeenDay7: true })
+  }, [update])
+
+  const setBseReminderChoice = useCallback((choice) => {
+    update({ bseReminderChoice: choice })
   }, [update])
 
   const respondToScreeningNudge = useCallback((response) => {
@@ -355,6 +406,7 @@ export function AppProvider({ children }) {
     showCheckinNudge,
     // Actions
     setUserName,
+    completeOnboarding,
     currentWeekNum,
     currentWeekFlower,
     showWeeklyPicker,
@@ -376,6 +428,7 @@ export function AppProvider({ children }) {
     logCycleDay,
     logMood,
     markLetterSeen,
+    setBseReminderChoice,
     respondToScreeningNudge,
     completeWeekCheckIn,
     setDevDay,

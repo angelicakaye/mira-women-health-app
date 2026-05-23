@@ -82,7 +82,7 @@ export default function MiraCheckIn({ onComplete, onDismiss, initialMood = null 
       ? (currentWeekNum === 1 ? 'How are you feeling today?' : 'How have you been?')
       : step === 'flower'
       ? 'Pick a flower to grow with you this week.'
-      : 'What feels right for this week?'
+      : 'What do you want to focus on for the coming week?'
 
   return (
     <div className={styles.overlay}>

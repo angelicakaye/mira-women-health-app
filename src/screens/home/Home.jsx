@@ -3,68 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import Layout from '../../components/shared/Layout'
 import MiraCard from '../../components/mira/MiraCard'
-import MiraLetter from '../../components/mira/MiraLetter'
-import MiraCheckIn from '../../components/mira/MiraCheckIn'
-import Mira from '../../components/mira/Mira'
+import MiraWeeklyCheckIn from '../../components/mira/MiraWeeklyCheckIn'
 import HabitRings from '../../components/habits/HabitRings'
 import RingHistory from '../../components/habits/RingHistory'
 import CycleTracker from '../../components/habits/CycleTracker'
 import ExerciseOverlay from '../../components/exercises/ExerciseOverlay'
-import DevDayPicker from '../../components/dev/DevDayPicker'
 import styles from './Home.module.css'
 
-const MOOD_CHIPS = [
-  { value: 'heavy',  label: 'Heavy',  emoji: '🌧️' },
-  { value: 'tired',  label: 'Tired',  emoji: '😴' },
-  { value: 'okay',   label: 'Okay',   emoji: '🌿' },
-  { value: 'good',   label: 'Good',   emoji: '🌸' },
-  { value: 'bright', label: 'Bright', emoji: '✨' },
-]
-
-function CheckInBanner({ onMoodSelect }) {
-  const [text, setText] = useState('')
-
-  function submitText() {
-    const trimmed = text.trim()
-    if (trimmed) onMoodSelect(trimmed)
-  }
-
-  return (
-    <div className={styles.checkInBanner}>
-      <div className={styles.checkInBannerMira}>
-        <Mira state="default" size={44} />
-      </div>
-      <div className={styles.checkInBannerBody}>
-        <p className={styles.checkInBannerQ}>How are you feeling?</p>
-        <div className={styles.checkInBannerChips}>
-          {MOOD_CHIPS.map(c => (
-            <button key={c.value} className={styles.checkInChip} onClick={() => onMoodSelect(c.value)}>
-              <span>{c.emoji}</span>
-              <span>{c.label}</span>
-            </button>
-          ))}
-        </div>
-        <div className={styles.checkInTextRow}>
-          <input
-            className={styles.checkInTextInput}
-            value={text}
-            onChange={e => setText(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && submitText()}
-            placeholder="or in your own words…"
-            maxLength={80}
-          />
-          {text.trim() && (
-            <button className={styles.checkInTextSend} onClick={submitText} aria-label="Submit">
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                <path d="M7 12V2M3 6l4-4 4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
+const DEMO_DAYS = [1, 7, 10, 14, 21]
 
 const AFFIRMATIONS = {
   support: [
@@ -294,6 +240,26 @@ function getTodayBadge() {
   })
 }
 
+function DemoDayToggle({ dayCount, onSetDay }) {
+  return (
+    <div className={styles.demoToggle} aria-label="Demo day selector">
+      <span className={styles.demoLabel}>Demo day</span>
+      <div className={styles.demoOptions}>
+        {DEMO_DAYS.map(day => (
+          <button
+            key={day}
+            className={`${styles.demoButton} ${dayCount === day ? styles.demoButtonActive : ''}`}
+            onClick={() => onSetDay(day)}
+            type="button"
+          >
+            {day}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 const FOCUS_OPTIONS = [
   { id: 'support',   label: 'Daily support',   desc: 'Gentle habits & self-care',      icon: '🌿' },
   { id: 'screening', label: 'Screening',        desc: 'Understanding my options',        icon: '🔍' },
@@ -396,26 +362,20 @@ export default function Home() {
   const {
     userName, dayCount, userGoal,
     setUserGoal, today, todayHabits, logHabit,
-    letterSeenDay7, needsWeekCheckIn,
+    letterSeenDay7, setDevDay,
   } = useApp()
   const [miraGlowing, setMiraGlowing] = useState(false)
   const [activeExercise, setActiveExercise] = useState(null)
   const [showRingHistory, setShowRingHistory] = useState(false)
   const [showLetter, setShowLetter] = useState(false)
-  const [showCheckIn, setShowCheckIn] = useState(needsWeekCheckIn)
-  const [dismissedMood, setDismissedMood] = useState(null)
   const navigate = useNavigate()
 
   const todaySelfCare = !!todayHabits.selfCare
 
+  // Show Day 7 weekly check-in once on first eligibility.
   useEffect(() => {
-    if (needsWeekCheckIn) setShowCheckIn(true)
-  }, [needsWeekCheckIn])
-
-  // Show Day 7 letter once on first eligibility, but only after check-in is done
-  useEffect(() => {
-    if (dayCount >= 7 && !letterSeenDay7 && !showCheckIn) setShowLetter(true)
-  }, [dayCount, letterSeenDay7, showCheckIn])
+    if (dayCount === 7 && !letterSeenDay7) setShowLetter(true)
+  }, [dayCount, letterSeenDay7])
 
   function handleAllHabits() {
     setMiraGlowing(true)
@@ -445,19 +405,14 @@ export default function Home() {
           <span className={styles.dayBadge}>{getTodayBadge()}</span>
         </div>
 
+        <DemoDayToggle dayCount={dayCount} onSetDay={setDevDay} />
+
         {/* Mira check-in */}
         <MiraCard
           isGlowing={miraGlowing}
           onGlowEnd={() => setMiraGlowing(false)}
           onScreeningReady={() => navigate('/screening')}
         />
-
-        {needsWeekCheckIn && !showCheckIn && (
-          <CheckInBanner onMoodSelect={mood => {
-            setDismissedMood(mood)
-            setShowCheckIn(true)
-          }} />
-        )}
 
         {/* ── Your Focus + activity ── */}
         <FocusSection
@@ -498,17 +453,8 @@ export default function Home() {
 
       {showRingHistory && <RingHistory onClose={() => setShowRingHistory(false)} />}
 
-      {showLetter && <MiraLetter onClose={() => setShowLetter(false)} />}
+      {showLetter && <MiraWeeklyCheckIn onClose={() => setShowLetter(false)} />}
 
-      {showCheckIn && (
-        <MiraCheckIn
-          initialMood={dismissedMood}
-          onComplete={() => { setShowCheckIn(false); setDismissedMood(null) }}
-          onDismiss={() => { setShowCheckIn(false); setDismissedMood(null) }}
-        />
-      )}
-
-      <DevDayPicker />
     </Layout>
   )
 }
